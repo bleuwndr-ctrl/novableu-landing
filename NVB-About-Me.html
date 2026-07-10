@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me — NOVABLEU KIDS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&family=Roboto+Mono:ital,wght@0,400;0,700;1,500;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --ink:#FFFFFF;
+    --grey:#B5B4AC;
+    --line:#F2F2EE;
+    --hairline:rgba(255,255,255,0.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Xanh Mono',Courier,monospace;
+    background:var(--bg);color:var(--ink);overflow-x:hidden;
+    font-size:18px;line-height:1.7;
+    -webkit-text-stroke:0.35px currentColor;
+  }
+  .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
+  a{text-decoration:none;color:inherit;}
+  ::selection{background:var(--ink);color:#000;}
+
+  /* ── 5 SKINNY SPARK EXPLOSIONS ───────────────── */
+  .sparks{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .spark{position:absolute;width:0;height:0;}
+  .spark i{
+    position:absolute;left:-0.75px;top:0;width:1.5px;height:15px;background:var(--c,var(--ink));
+    transform-origin:50% 0;opacity:0;
+    animation:ray 9s linear infinite;animation-delay:var(--d);
+    transform:rotate(var(--a)) translateY(3px) scaleY(.2);
+  }
+  @keyframes ray{
+    0%,74%{opacity:0;transform:rotate(var(--a)) translateY(3px) scaleY(.15);}
+    79%{opacity:.6;}
+    88%{opacity:.35;transform:rotate(var(--a)) translateY(14px) scaleY(1);}
+    94%,100%{opacity:0;transform:rotate(var(--a)) translateY(18px) scaleY(.5);}
+  }
+
+  main{position:relative;z-index:1;}
+
+  /* ── SCREEN 1 / HERO ─────────────────────────── */
+  .screen1{
+    min-height:calc(100vh - 50px);display:flex;flex-direction:column;justify-content:space-between;
+    padding:24px 34px 28px;position:relative;
+  }
+  .microline{
+    position:sticky;top:0;z-index:40;background:var(--bg);
+    display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-size:16.5px;letter-spacing:.4px;color:var(--grey);
+    border-bottom:1px solid var(--line);padding:19px 34px;
+  }
+  .microline .cs{color:var(--ink);}
+  .ml-side{flex:1;}
+  .ml-side.right{text-align:right;}
+  .topnav{display:flex;gap:48px;align-items:center;}
+  .topnav a{
+    color:#fff;font-weight:700;font-size:17.5px;letter-spacing:3.5px;text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .topnav a:hover{opacity:.65;}
+  .topnav .home{display:inline-flex;align-items:center;}
+  .topnav .home svg{width:31px;height:31px;}
+  .topnav a.active{border-bottom:2px solid #fff;padding-bottom:4px;}
+  section{scroll-margin-top:84px;}
+  .hero-name{margin-top:10px;}
+  .hero-name h1{
+    font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;
+    font-size:clamp(40px,11.6vw,172px);line-height:.95;letter-spacing:-0.055em;
+    white-space:nowrap;
+  }
+  .name-svg{width:100%;height:auto;display:block;margin-top:8px;}
+  .name-svg text{font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;letter-spacing:0;}
+  .sheen{animation:sheen-sweep 4.6s linear infinite;}
+  @keyframes sheen-sweep{
+    from{transform:translateX(0) skewX(-18deg);}
+    to{transform:translateX(2100px) skewX(-18deg);}
+  }
+  .meaning{
+    font-style:italic;font-size:16px;color:var(--grey);margin-top:16px;letter-spacing:.5px;
+  }
+  .meaning b{color:var(--ink);font-weight:400;}
+  .hero-mid{
+    flex:1;display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .slogan{
+    font-style:italic;white-space:nowrap;text-align:center;width:100%;
+    font-size:clamp(17px,3.3vw,46px);letter-spacing:.01em;
+  }
+  .v-en{
+    position:absolute;writing-mode:vertical-rl;font-size:14px;letter-spacing:3px;color:var(--grey);text-transform:uppercase;
+  }
+  .v-en.left{left:0;top:8%;}
+  .v-en.right{right:0;bottom:8%;}
+  .hero-foot{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--grey);
+  }
+  .hero-foot .scroll{color:var(--ink);}
+
+  /* ── SECTIONS ────────────────────────────────── */
+  section{padding:110px 34px;max-width:1160px;margin:0 auto;position:relative;}
+  .sec-label{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:54px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);
+  }
+  .sec-label .num{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:19px;color:var(--ink);}
+  .sec-label .rule{flex:1;height:1px;background:var(--hairline);position:relative;top:-4px;}
+
+  /* about — typographic composition */
+  .about h2{
+    font-size:clamp(34px,5.6vw,74px);line-height:1.04;letter-spacing:-0.03em;text-transform:uppercase;
+  }
+  .about h2 .boxed{
+    display:inline-block;border:2px solid var(--line);padding:0 14px 4px;margin:0 2px;
+  }
+  .about .aside{
+    text-align:right;font-style:italic;font-size:clamp(16px,2vw,22px);color:var(--grey);margin:26px 0;
+  }
+  .about h3{
+    font-size:clamp(28px,4.4vw,58px);letter-spacing:-0.02em;text-transform:uppercase;text-align:right;line-height:1.05;
+  }
+  .about .body-box{
+    max-width:560px;border:1px solid var(--line);padding:30px 32px;margin-top:64px;
+    font-size:17px;line-height:1.85;
+  }
+  .about .body-box .k{border-bottom:1px solid var(--ink);}
+
+  /* mila — 3 empty outline boxes, staggered */
+  .mila-grid{
+    display:grid;grid-template-columns:1.1fr .85fr 1fr;gap:34px;align-items:start;
+  }
+  .mbox .ph{
+    border:1.5px solid var(--line);background:#000;position:relative;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .mbox .ph .tag{
+    position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  }
+  .mbox .ph .soon{font-style:italic;font-size:13px;color:var(--grey);}
+  .mbox .cap{margin-top:12px;font-size:15px;}
+  .mbox .cap .n{color:var(--grey);margin-right:8px;}
+  .mb1 .ph{aspect-ratio:4/5;}
+  .mb2{margin-top:74px;}
+  .mb2 .ph{aspect-ratio:1/1;}
+  .mb3{margin-top:26px;}
+  .mb3 .ph{aspect-ratio:3/4;}
+  .mila-note{
+    margin-top:60px;text-align:center;font-style:italic;font-size:clamp(16px,2.4vw,26px);
+  }
+
+  /* session — 4 boxes with kanji numerals */
+  .phase-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--line);}
+  .phase{
+    padding:40px 30px 46px;border-right:1px solid var(--line);min-height:360px;
+    display:flex;flex-direction:column;
+  }
+  .phase:last-child{border-right:none;}
+  .phase .pnum{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:36px;}
+  .phase .picon{margin:28px 0 auto;}
+  .phase .picon svg{width:52px;height:52px;display:block;}
+  .phase .min{font-size:14px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin:26px 0 8px;}
+  .phase h4{font-size:21px;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:10px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;line-height:1.25;}
+  .phase p{font-size:17px;color:#D8D7CF;line-height:1.7;}
+
+  /* join */
+  .join{text-align:center;}
+  .join h2{
+    font-size:clamp(30px,5vw,66px);letter-spacing:-0.03em;text-transform:uppercase;margin-bottom:26px;
+  }
+  .join p{max-width:480px;margin:0 auto 38px;color:var(--grey);}
+  .cta{
+    display:inline-block;background:var(--ink);color:#000;padding:20px 46px;
+    font-size:15px;letter-spacing:1px;border:1.5px solid var(--ink);
+  }
+  .cta:hover{background:#000;color:var(--ink);}
+  .join .soon-line{margin-top:26px;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);}
+
+  /* about me */
+  .aboutme-grid{display:grid;grid-template-columns:.85fr 1.35fr;gap:52px;align-items:start;}
+  .portrait .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .portrait .ph{
+    border:1.5px solid var(--line);background:#000;aspect-ratio:3/4;position:relative;
+    overflow:hidden;
+  }
+  .portrait .ph img{width:100%;height:100%;object-fit:cover;display:block;}
+  .portrait .ph .tag{
+    position:absolute;top:10px;left:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    background:#000;color:#fff;padding:3px 9px;border:1px solid var(--hairline);
+  }
+  .portrait .cap{margin-top:12px;font-size:15px;}
+  .creds{background:#0038E8;border:1.5px solid var(--line);margin-top:26px;padding:28px 30px 24px;}
+  .creds .ct{
+    font-family:'Roboto Mono',monospace;font-weight:700;font-size:13px;letter-spacing:3px;
+    text-transform:uppercase;color:#fff;margin-bottom:18px;
+  }
+  .creds ul{list-style:none;padding:0;margin:0;}
+  .creds li{padding:13px 0;border-top:1px solid rgba(255,255,255,0.3);-webkit-text-stroke:0;}
+  .creds li:first-child{border-top:none;padding-top:0;}
+  .creds li b{
+    display:block;font-family:'Roboto Mono',monospace;font-weight:700;font-size:14.5px;
+    letter-spacing:1.2px;text-transform:uppercase;color:#fff;margin-bottom:3px;
+  }
+  .creds li span{
+    display:block;font-family:'Roboto Mono',monospace;font-weight:400;font-size:14px;
+    line-height:1.6;color:rgba(255,255,255,0.88);letter-spacing:.2px;
+  }
+  .aboutme-copy .lead-quote{
+    font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
+    font-size:clamp(20px,2.6vw,31px);line-height:1.4;margin-bottom:30px;
+  }
+  .aboutme-copy .lead-quote .q{color:var(--grey);}
+  .aboutme-copy p{color:#D8D7CF;font-size:17px;line-height:1.85;margin-bottom:20px;max-width:62ch;}
+  .aboutme-copy .sig{font-style:italic;color:var(--grey);font-size:15px;}
+
+  /* ethos */
+  .ethos-state{
+    font-style:italic;text-align:center;font-size:clamp(26px,4vw,48px);line-height:1.3;
+    max-width:880px;margin:0 auto 26px;
+  }
+  .ethos-sub{text-align:center;color:#D8D7CF;font-size:16.5px;line-height:1.8;max-width:640px;margin:0 auto 70px;}
+  .creed{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--line);}
+  .creed .c{padding:36px 30px 42px;border-right:1px solid var(--line);}
+  .creed .c:last-child{border-right:none;}
+  .creed .cn{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:24px;margin-bottom:18px;}
+  .creed h4{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:18px;text-transform:uppercase;line-height:1.3;margin-bottom:12px;}
+  .creed p{font-size:15.5px;color:#D8D7CF;line-height:1.7;}
+  .ethos-mission{
+    max-width:720px;margin:70px auto 0;border:1px solid var(--line);padding:34px 36px;
+    font-size:17px;line-height:1.9;color:#EDEDEA;
+  }
+  .ethos-mission .k{border-bottom:1px solid var(--ink);}
+
+  /* gallery */
+  .gal-head{
+    font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
+    font-size:clamp(28px,4.4vw,54px);letter-spacing:-0.02em;text-transform:uppercase;line-height:1.1;margin-bottom:20px;
+  }
+  .gal-sub{color:#D8D7CF;font-size:16.5px;line-height:1.8;max-width:640px;margin-bottom:56px;}
+  .gal-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+  .gal-grid .g{aspect-ratio:3/4;border:1px solid var(--line);background:#000;position:relative;}
+  .gal-grid .gi{position:absolute;top:6px;left:9px;font-size:10.5px;letter-spacing:1px;color:var(--grey);}
+  .gal-grid .gs{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-style:italic;color:#55544E;}
+  .gal-cap{margin-top:22px;font-size:13px;color:var(--grey);display:flex;justify-content:space-between;}
+
+  /* footer */
+  footer{
+    border-top:1px solid var(--line);padding:70px 34px 40px;text-align:center;position:relative;z-index:1;
+  }
+  footer img{width:72px;height:auto;display:block;margin:0 auto 26px;}
+  footer .fline{font-size:12px;color:var(--grey);letter-spacing:.5px;}
+  footer .fline + .fline{margin-top:6px;}
+
+  @media (max-width:860px){
+    .ml-side{display:none;}
+    .microline{justify-content:center;}
+    .topnav{gap:24px;}
+    .topnav a{font-size:13.5px;letter-spacing:2px;}
+    .aboutme-grid{grid-template-columns:1fr;gap:40px;}
+    .creed{grid-template-columns:1fr;}
+    .creed .c{border-right:none;border-bottom:1px solid var(--line);}
+    .gal-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
+    .hero-name h1{white-space:normal;font-size:clamp(44px,13vw,90px);}
+    .slogan{white-space:normal;font-size:clamp(20px,6vw,34px);}
+    .v-jp,.v-en{display:none;}
+    .mila-grid{grid-template-columns:1fr;gap:44px;}
+    .mb2,.mb3{margin-top:0;}
+    .phase-grid{grid-template-columns:1fr 1fr;}
+    .phase{border-bottom:1px solid var(--line);min-height:0;}
+    .about h3,.about .aside{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sparks">
+  <div class="spark" style="left:16%;top:46%;">
+    <i style="--a:12deg;--d:0s"></i><i style="--a:72deg;--d:0s"></i><i style="--a:132deg;--d:0s"></i>
+    <i style="--a:192deg;--d:0s"></i><i style="--a:252deg;--d:0s"></i><i style="--a:312deg;--d:0s"></i>
+  </div>
+  <div class="spark" style="left:88%;top:40%;">
+    <i style="--a:40deg;--d:1.8s"></i><i style="--a:100deg;--d:1.8s"></i><i style="--a:160deg;--d:1.8s"></i>
+    <i style="--a:220deg;--d:1.8s"></i><i style="--a:280deg;--d:1.8s"></i><i style="--a:340deg;--d:1.8s"></i>
+  </div>
+  <div class="spark" style="left:70%;top:66%;">
+    <i style="--a:25deg;--d:3.6s"></i><i style="--a:85deg;--d:3.6s"></i><i style="--a:145deg;--d:3.6s"></i>
+    <i style="--a:205deg;--d:3.6s"></i><i style="--a:265deg;--d:3.6s"></i><i style="--a:325deg;--d:3.6s"></i>
+  </div>
+  <div class="spark" style="left:24%;top:74%;">
+    <i style="--a:55deg;--d:5.4s"></i><i style="--a:115deg;--d:5.4s"></i><i style="--a:175deg;--d:5.4s"></i>
+    <i style="--a:235deg;--d:5.4s"></i><i style="--a:295deg;--d:5.4s"></i><i style="--a:355deg;--d:5.4s"></i>
+  </div>
+  <div class="spark" style="left:50%;top:44%;">
+    <i style="--a:8deg;--d:7.2s"></i><i style="--a:68deg;--d:7.2s"></i><i style="--a:128deg;--d:7.2s"></i>
+    <i style="--a:188deg;--d:7.2s"></i><i style="--a:248deg;--d:7.2s"></i><i style="--a:308deg;--d:7.2s"></i>
+  </div>
+  <div class="spark" style="left:38%;top:50%;">
+    <i style="--a:5deg;--d:.9s;--c:#FF6B6B"></i><i style="--a:56deg;--d:.9s;--c:#FFA94D"></i>
+    <i style="--a:108deg;--d:.9s;--c:#FFE066"></i><i style="--a:159deg;--d:.9s;--c:#69DB7C"></i>
+    <i style="--a:210deg;--d:.9s;--c:#4DABF7"></i><i style="--a:262deg;--d:.9s;--c:#748FFC"></i>
+    <i style="--a:313deg;--d:.9s;--c:#DA77F2"></i>
+  </div>
+  <div class="spark" style="left:90%;top:48%;">
+    <i style="--a:20deg;--d:2.7s;--c:#FF6B6B"></i><i style="--a:71deg;--d:2.7s;--c:#FFA94D"></i>
+    <i style="--a:123deg;--d:2.7s;--c:#FFE066"></i><i style="--a:174deg;--d:2.7s;--c:#69DB7C"></i>
+    <i style="--a:225deg;--d:2.7s;--c:#4DABF7"></i><i style="--a:277deg;--d:2.7s;--c:#748FFC"></i>
+    <i style="--a:328deg;--d:2.7s;--c:#DA77F2"></i>
+  </div>
+  <div class="spark" style="left:9%;top:58%;">
+    <i style="--a:35deg;--d:4.5s;--c:#FF6B6B"></i><i style="--a:86deg;--d:4.5s;--c:#FFA94D"></i>
+    <i style="--a:138deg;--d:4.5s;--c:#FFE066"></i><i style="--a:189deg;--d:4.5s;--c:#69DB7C"></i>
+    <i style="--a:240deg;--d:4.5s;--c:#4DABF7"></i><i style="--a:292deg;--d:4.5s;--c:#748FFC"></i>
+    <i style="--a:343deg;--d:4.5s;--c:#DA77F2"></i>
+  </div>
+  <div class="spark" style="left:8%;top:86%;">
+    <i style="--a:18deg;--d:1.2s"></i><i style="--a:78deg;--d:1.2s"></i><i style="--a:138deg;--d:1.2s"></i>
+    <i style="--a:198deg;--d:1.2s"></i><i style="--a:258deg;--d:1.2s"></i><i style="--a:318deg;--d:1.2s"></i>
+  </div>
+  <div class="spark" style="left:60%;top:52%;">
+    <i style="--a:10deg;--d:3.0s;--c:#FF6B6B"></i><i style="--a:61deg;--d:3.0s;--c:#FFA94D"></i>
+    <i style="--a:113deg;--d:3.0s;--c:#FFE066"></i><i style="--a:164deg;--d:3.0s;--c:#69DB7C"></i>
+    <i style="--a:215deg;--d:3.0s;--c:#4DABF7"></i><i style="--a:267deg;--d:3.0s;--c:#748FFC"></i>
+    <i style="--a:318deg;--d:3.0s;--c:#DA77F2"></i>
+  </div>
+  <div class="spark" style="left:92%;top:74%;">
+    <i style="--a:30deg;--d:5.1s"></i><i style="--a:90deg;--d:5.1s"></i><i style="--a:150deg;--d:5.1s"></i>
+    <i style="--a:210deg;--d:5.1s"></i><i style="--a:270deg;--d:5.1s"></i><i style="--a:330deg;--d:5.1s"></i>
+  </div>
+  <div class="spark" style="left:45%;top:82%;">
+    <i style="--a:42deg;--d:6.3s;--c:#FF6B6B"></i><i style="--a:93deg;--d:6.3s;--c:#FFA94D"></i>
+    <i style="--a:145deg;--d:6.3s;--c:#FFE066"></i><i style="--a:196deg;--d:6.3s;--c:#69DB7C"></i>
+    <i style="--a:247deg;--d:6.3s;--c:#4DABF7"></i><i style="--a:299deg;--d:6.3s;--c:#748FFC"></i>
+    <i style="--a:350deg;--d:6.3s;--c:#DA77F2"></i>
+  </div>
+  <div class="spark" style="left:70%;top:34%;">
+    <i style="--a:8deg;--d:8.1s"></i><i style="--a:68deg;--d:8.1s"></i><i style="--a:128deg;--d:8.1s"></i>
+    <i style="--a:188deg;--d:8.1s"></i><i style="--a:248deg;--d:8.1s"></i><i style="--a:308deg;--d:8.1s"></i>
+  </div>
+</div>
+
+<main>
+
+  <!-- SCREEN 1 -->
+  <header class="microline" id="top">
+    <span class="ml-side">A Creative Confidence Studio — Kids 9–12</span>
+    <nav class="topnav">
+      <a class="home" href="NovaBleu-Kids-Official-Landing-Page-dark.html" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg></a>
+      <a href="NVB-About-Me.html" class="active">About Me</a>
+      <a href="NVB-Ethos.html">Ethos</a>
+      <a href="NVB-Gallery.html">Gallery</a>
+      <a href="NVB-Join.html">Join</a>
+    </nav>
+    <span class="ml-side right cs">Coming Soon · 2026</span>
+  </header>
+
+  <!-- 04 ABOUT ME -->
+  <section id="aboutme">
+    <div class="sec-label"><span class="num">01</span><span>/ about me — the founder</span><span class="rule"></span></div>
+    <div class="aboutme-grid">
+      <div class="portrait">
+        <div class="duo">
+          <div class="ph"><img src="charles-then.jpg" alt="Charles as a kid — school photo"><span class="tag">Then</span></div>
+          <div class="ph"><img src="charles-now.png" alt="Charles at graduation, Cal Poly Pomona"><span class="tag">Now</span></div>
+        </div>
+        <div class="cap">Charles, a.k.a <b>Bleuwndr</b> — Founder &amp; Instructor</div>
+        <div class="creds">
+          <div class="ct">Background</div>
+          <ul>
+            <li><b>Visual Artist</b><span>20+ years of drawing experience</span></li>
+            <li><b>BA, Visual Communication Design</b><span>Cal Poly Pomona</span></li>
+            <li><b>Published Author</b><span>Essenc&iacute;sm: An Artist's Manifesto of the Soul</span></li>
+            <li><b>ABA Behavior Technician</b><span>Works directly with kids daily</span></li>
+            <li><b>Former Scrum Master</b><span>Project coordination at ASML</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="aboutme-copy">
+        <div class="lead-quote"><span class="q">"</span>I'm not a veteran educator with a proven system and 500 alumni. I'm a first-time founder who spent 20 years building something I didn't have a name for — and finally figured out what it was.<span class="q">"</span></div>
+        <p>Growing up, I didn't learn art to feel something. I learned art to prove something. Could you make it look real? Could you copy it correctly? Art was a performance, not a language.</p>
+        <p>It took years of self-teaching, writing, and building my own creative identity to understand what art actually is: not a showcase of skill — a way of processing the world and putting your specific version of it on paper. That transformation changed everything about how I create, and it made me ask one question: <b>what if kids learned that from the beginning?</b></p>
+        <p>Working with kids daily as a behavior technician, I noticed their drawings already have personality, energy, and a distinct voice. They aren't waiting to be taught how to be creative — they're waiting for an environment where that creativity has somewhere to go.</p>
+        <p class="sig">NovaBleu Kids is that question turned into a program. I teach every session. I iterate after every cohort. There is no layer between the product and the person who built it.</p>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <img src="bleuwndr-logo-white.png" alt="Bleuwndr">
+  <div class="fline">© 2026 Charles / Bleuwndr · NovaBleu Kids</div>
+  <div class="fline">Raising Curators. Not Consumers.</div>
+</footer>
+
+</body>
+</html>

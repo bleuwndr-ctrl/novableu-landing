@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Signups — NOVABLEU KIDS Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,500;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000; --ink:#FFFFFF; --grey:#B5B4AC; --line:#F2F2EE; --hairline:rgba(255,255,255,0.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Xanh Mono',Courier,monospace;background:var(--bg);color:var(--ink);
+    font-size:15px;line-height:1.6;min-height:100vh;
+  }
+  .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
+  a{color:inherit;}
+  .wrap{max-width:1100px;margin:0 auto;padding:50px 30px 80px;}
+  .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:50px;border-bottom:1px solid var(--line);padding-bottom:20px;}
+  .top h1{font-size:20px;text-transform:uppercase;letter-spacing:1px;}
+  .top a{font-size:13px;color:var(--grey);border-bottom:1px solid var(--grey);}
+
+  .gate{max-width:340px;margin:80px auto;text-align:center;}
+  .gate p{color:var(--grey);margin-bottom:24px;font-size:14px;}
+  .gate input{
+    width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);
+    color:var(--ink);font-family:'Xanh Mono',Courier,monospace;font-size:18px;padding:10px 2px;text-align:center;
+    letter-spacing:2px;
+  }
+  .gate input:focus{outline:none;border-bottom-color:#fff;}
+  .gate button{
+    margin-top:24px;width:100%;background:var(--ink);color:#000;border:1.5px solid var(--ink);
+    padding:14px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:14px;
+    letter-spacing:1px;cursor:pointer;
+  }
+  .gate button:hover{background:#000;color:var(--ink);}
+  .gate .err{color:#FF6B6B;margin-top:16px;font-size:13px;display:none;}
+  .gate .err.show{display:block;}
+
+  .stats{display:flex;gap:40px;margin-bottom:36px;}
+  .stats .s{border:1px solid var(--line);padding:16px 22px;}
+  .stats .s .n{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:28px;}
+  .stats .s .l{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{
+    text-align:left;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
+    font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--grey);
+    border-bottom:1px solid var(--line);padding:10px 12px;white-space:nowrap;
+  }
+  td{border-bottom:1px solid var(--hairline);padding:10px 12px;vertical-align:top;}
+  tr:last-child td{border-bottom:1px solid var(--line);}
+  .empty{color:var(--grey);font-style:italic;padding:40px 0;text-align:center;}
+  .tablewrap{overflow-x:auto;}
+  .err-row{color:#FF6B6B;}
+  .refresh{
+    margin-bottom:20px;background:transparent;color:var(--ink);border:1px solid var(--line);
+    padding:9px 18px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:12px;
+    letter-spacing:1px;cursor:pointer;
+  }
+  .refresh:hover{background:var(--ink);color:#000;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <h1 class="rb">NovaBleu Kids — Signups</h1>
+    <a href="NovaBleu-Kids-Official-Landing-Page-dark.html">&larr; Back to site</a>
+  </div>
+
+  <div class="gate" id="gate">
+    <p>Enter the admin password to view signups.</p>
+    <input type="password" id="pw" placeholder="Password" autocomplete="off">
+    <button id="unlockBtn">Unlock</button>
+    <div class="err" id="gateErr">Wrong password.</div>
+  </div>
+
+  <div id="content" style="display:none;">
+    <div class="stats" id="stats"></div>
+    <button class="refresh" id="refreshBtn">Refresh</button>
+    <div class="tablewrap" id="tablewrap"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFmsCFmalfEQtT4AJ04h_F6poVcLesMIGTMguTos2JBEdWQYM788j96iRS6pccQpqH1Q/exec';
+  var COLUMNS = ['Timestamp','Parent Name','Parent Email','Parent Phone','Child First Name','Child Age','Best Times','How Heard','Notes','Consent'];
+  var currentKey = null;
+
+  var gate = document.getElementById('gate');
+  var content = document.getElementById('content');
+  var pwInput = document.getElementById('pw');
+  var gateErr = document.getElementById('gateErr');
+  var requestSeq = 0;
+
+  function load(key){
+    // JSONP, not fetch(): Apps Script's CORS headers are unreliable when the
+    // caller is a local file (origin "null"), so a plain fetch() intermittently
+    // gets blocked. A <script> tag isn't subject to CORS at all.
+    var seq = ++requestSeq;
+    return new Promise(function(resolve){
+      var cbName = 'nvbAdminCb' + seq;
+      var script = document.createElement('script');
+
+      function cleanup(){
+        clearTimeout(timeoutId);
+        delete window[cbName];
+        if(script.parentNode) script.parentNode.removeChild(script);
+      }
+      function fail(){
+        cleanup();
+        if(seq !== requestSeq) return resolve(false);
+        gateErr.textContent = 'Could not reach the sheet — check your connection.';
+        gateErr.classList.add('show');
+        resolve(false);
+      }
+
+      var timeoutId = setTimeout(fail, 8000);
+
+      window[cbName] = function(data){
+        cleanup();
+        if(seq !== requestSeq) return resolve(false); // a newer request already answered
+        if(data && data.error){
+          gateErr.classList.add('show');
+          return resolve(false);
+        }
+        currentKey = key;
+        gate.style.display = 'none';
+        content.style.display = 'block';
+        render(data);
+        resolve(true);
+      };
+
+      script.src = SCRIPT_URL + '?key=' + encodeURIComponent(key) + '&callback=' + cbName;
+      script.onerror = fail;
+      document.body.appendChild(script);
+    });
+  }
+
+  function render(rows){
+    var stats = document.getElementById('stats');
+    stats.innerHTML =
+      '<div class="s"><div class="n">' + rows.length + '</div><div class="l">Total signups</div></div>';
+
+    var wrap = document.getElementById('tablewrap');
+    if(!rows.length){
+      wrap.innerHTML = '<div class="empty">No signups yet.</div>';
+      return;
+    }
+    var html = '<table><thead><tr>';
+    COLUMNS.forEach(function(c){ html += '<th>' + c + '</th>'; });
+    html += '</tr></thead><tbody>';
+    rows.slice().reverse().forEach(function(row){
+      var isError = String(row['Timestamp'] || '').indexOf('ERROR') === 0;
+      html += '<tr class="' + (isError ? 'err-row' : '') + '">';
+      COLUMNS.forEach(function(c){
+        var v = row[c];
+        html += '<td>' + (v === undefined || v === '' ? '&nbsp;' : String(v)) + '</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  }
+
+  document.getElementById('unlockBtn').addEventListener('click', function(){
+    gateErr.classList.remove('show');
+    if(!pwInput.value) return;
+    load(pwInput.value);
+  });
+  pwInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') document.getElementById('unlockBtn').click();
+  });
+  document.getElementById('refreshBtn').addEventListener('click', function(){
+    if(currentKey) load(currentKey);
+  });
+})();
+</script>
+
+</body>
+</html>
