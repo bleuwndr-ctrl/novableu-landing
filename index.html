@@ -69,22 +69,45 @@
   .topnav a.active{border-bottom:2px solid var(--ink);padding-bottom:4px;}
   section{scroll-margin-top:84px;}
   .hero-name{margin-top:10px;}
-  .hero-name h1{
-    font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;
-    font-size:clamp(40px,11.6vw,172px);line-height:.95;letter-spacing:-0.055em;
-    white-space:nowrap;
-  }
-  .name-svg{width:100%;height:auto;display:block;margin-top:8px;}
-  .name-svg text{font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;letter-spacing:0;}
-  .sheen{animation:sheen-sweep 4.6s linear infinite;}
-  @keyframes sheen-sweep{
-    from{transform:translateX(0) skewX(-18deg);}
-    to{transform:translateX(2100px) skewX(-18deg);}
-  }
   .meaning{
     font-style:italic;font-size:16px;color:var(--grey);margin-top:16px;letter-spacing:.5px;
   }
   .meaning b{color:var(--ink);font-weight:400;}
+
+  /* ── 3D wordmark: NOVABLEU KIDS wrapped around a cylinder, drag left/right
+     to spin it. 13 slots (12 letters + 1 space), evenly spaced around the
+     ring at 360/13deg apart. Each letter is its own absolutely-positioned
+     span so it can carry an independent rotateY + translateZ — SVG can't do
+     real 3D, so this replaces the old flat gradient-text technique. */
+  .wordmark3d{
+    perspective:1700px;height:clamp(140px,24vh,230px);margin-top:8px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;outline:none;
+  }
+  .wordmark3d.dragging{cursor:grabbing;}
+  .wordmark3d-ring{
+    position:relative;width:1px;height:1px;
+    transform-style:preserve-3d;transform:rotateY(0deg);
+    will-change:transform;
+  }
+  .w3d-l{
+    position:absolute;left:50%;top:50%;
+    /* --x is each letter's fixed horizontal slot (recovered from the old
+       SVG's hand-placed x positions, in em so it scales with font-size) —
+       readability never depends on rotation. --i (0-12, centered on index 6
+       "E") only drives a small per-letter tilt for 3D character; dragging
+       spins the whole .wordmark3d-ring as one rigid 3D body, swinging this
+       fixed arrangement around like a sign board, rather than fighting the
+       layout to also do the spacing. */
+    transform:translate(-50%,-50%) translateX(var(--x)) rotateY(calc((var(--i) - 6) * 3deg)) translateZ(2.2em);
+    font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;
+    /* Sized smaller than the old h1's clamp on purpose: unlike the SVG (which
+       viewBox-scaled to fit any width), these letters render at true font-
+       size, and the full N..S span is ~8.2em wide — this keeps that span
+       inside the viewport instead of clipping N/S at the edges. */
+    font-size:clamp(28px,8.4vw,124px);line-height:.95;letter-spacing:-0.02em;
+    color:var(--c,var(--ink));backface-visibility:hidden;white-space:pre;
+  }
   .hero-mid{
     flex:1;display:flex;align-items:center;justify-content:center;position:relative;
   }
@@ -345,36 +368,68 @@
   <div class="screen1">
     <div>
       <div class="hero-name">
-        <svg class="name-svg" viewBox="0 92 1170 192" role="img" aria-label="NOVABLEU KIDS">
-          <defs>
-            <linearGradient id="nvbgrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#000000"/>
-              <stop offset=".17" stop-color="#000000"/>
-              <stop offset=".40" stop-color="#0038E8"/>
-              <stop offset=".64" stop-color="#0038E8"/>
-              <stop offset=".71" stop-color="#FF6B6B"/>
-              <stop offset=".765" stop-color="#FFA94D"/>
-              <stop offset=".82" stop-color="#FFE066"/>
-              <stop offset=".875" stop-color="#69DB7C"/>
-              <stop offset=".93" stop-color="#4DABF7"/>
-              <stop offset="1" stop-color="#DA77F2"/>
-            </linearGradient>
-            <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
-              <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".75"/>
-              <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-            </linearGradient>
-            <clipPath id="nameclip">
-              <text font-size="136" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
-            </clipPath>
-          </defs>
-          <text font-size="136" fill="url(#nvbgrad)" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
-          <g clip-path="url(#nameclip)">
-            <rect class="sheen" x="-480" y="88" width="440" height="200" fill="url(#shine)"/>
-          </g>
-        </svg>
+        <div class="wordmark3d" id="wordmark3d" role="img" aria-label="NOVABLEU KIDS — drag left or right to spin" tabindex="0">
+          <div class="wordmark3d-ring" id="wordmark3dRing">
+            <span class="w3d-l" style="--i:0;--x:-3.58em;--c:#000000">N</span>
+            <span class="w3d-l" style="--i:1;--x:-2.99em;--c:#000000">O</span>
+            <span class="w3d-l" style="--i:2;--x:-2.39em;--c:#0a1f4d">V</span>
+            <span class="w3d-l" style="--i:3;--x:-1.80em;--c:#0038E8">A</span>
+            <span class="w3d-l" style="--i:4;--x:-1.20em;--c:#0038E8">B</span>
+            <span class="w3d-l" style="--i:5;--x:-0.60em;--c:#0038E8">L</span>
+            <span class="w3d-l" style="--i:6;--x:0em;--c:#0038E8">E</span>
+            <span class="w3d-l" style="--i:7;--x:0.60em;--c:#0038E8">U</span>
+            <span class="w3d-l" style="--i:8;--x:1.20em;--c:#0038E8">&nbsp;</span>
+            <span class="w3d-l" style="--i:9;--x:1.80em;--c:#FF6B6B">K</span>
+            <span class="w3d-l" style="--i:10;--x:2.40em;--c:#FFD43B">I</span>
+            <span class="w3d-l" style="--i:11;--x:3.00em;--c:#51CF66">D</span>
+            <span class="w3d-l" style="--i:12;--x:3.59em;--c:#DA77F2">S</span>
+          </div>
+        </div>
         <div class="meaning">NovaBleu Kids <b>= Sparkled Imaginative Kids</b></div>
       </div>
+
+      <script>
+      (function(){
+        var wrap = document.getElementById('wordmark3d');
+        var ring = document.getElementById('wordmark3dRing');
+        if(!wrap || !ring) return;
+        // Clamped to ±LIMIT: past 90deg the ring is edge-on to the camera and,
+        // with backface-visibility:hidden on each letter, the whole wordmark
+        // just vanishes into blank space until it swings back past 270deg —
+        // reads as broken, not fun. Staying well inside that keeps it always
+        // at least partly legible, more "tilt a sign" than "spin into a void".
+        var LIMIT = 55;
+        var rotation = 0, dragging = false, startX = 0, startRotation = 0, moved = false;
+
+        function apply(){ ring.style.transform = 'rotateY(' + rotation + 'deg)'; }
+        function clamp(v){ return Math.max(-LIMIT, Math.min(LIMIT, v)); }
+
+        function down(x){
+          dragging = true; moved = false; startX = x; startRotation = rotation;
+          wrap.classList.add('dragging');
+        }
+        function move(x){
+          if(!dragging) return;
+          if(Math.abs(x - startX) > 3) moved = true;
+          rotation = clamp(startRotation + (x - startX) * 0.4);
+          apply();
+        }
+        function up(){ dragging = false; wrap.classList.remove('dragging'); }
+
+        wrap.addEventListener('mousedown', function(e){ wrap.focus(); down(e.clientX); e.preventDefault(); });
+        window.addEventListener('mousemove', function(e){ move(e.clientX); });
+        window.addEventListener('mouseup', up);
+
+        wrap.addEventListener('touchstart', function(e){ down(e.touches[0].clientX); }, {passive:true});
+        window.addEventListener('touchmove', function(e){ if(dragging) move(e.touches[0].clientX); }, {passive:true});
+        window.addEventListener('touchend', up);
+
+        wrap.addEventListener('keydown', function(e){
+          if(e.key === 'ArrowLeft'){ rotation = clamp(rotation - 12); apply(); e.preventDefault(); }
+          if(e.key === 'ArrowRight'){ rotation = clamp(rotation + 12); apply(); e.preventDefault(); }
+        });
+      })();
+      </script>
     </div>
 
     <div class="hero-mid">
