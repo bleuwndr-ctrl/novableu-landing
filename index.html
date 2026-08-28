@@ -89,6 +89,16 @@
     position:relative;width:1px;height:1px;
     transform-style:preserve-3d;transform:rotateY(0deg);
     will-change:transform;
+    /* Idle state: spins forever. JS pauses this on drag-start (reading the
+       live angle via time-tracking, not matrix parsing) and restarts it with
+       a negative animation-delay on release so it keeps going seamlessly
+       from wherever it was let go, rather than snapping back to a fixed
+       start. See the script below for spinBaseTime/SPIN_MS. */
+    animation:w3d-spin 16s linear infinite;
+  }
+  @keyframes w3d-spin{ from{transform:rotateY(0deg);} to{transform:rotateY(360deg);} }
+  @media (prefers-reduced-motion: reduce){
+    .wordmark3d-ring{ animation:none; }
   }
   .w3d-l{
     position:absolute;left:50%;top:50%;
@@ -106,7 +116,53 @@
        size, and the full N..S span is ~8.2em wide — this keeps that span
        inside the viewport instead of clipping N/S at the edges. */
     font-size:clamp(28px,8.4vw,124px);line-height:.95;letter-spacing:-0.02em;
-    color:var(--c,var(--ink));backface-visibility:hidden;white-space:pre;
+    color:var(--c,var(--ink));white-space:pre;
+    /* "Blockish" extruded depth: a stepped diagonal text-shadow stack reads
+       as a solid chunk of material under the colored face, like a wooden
+       block letter — this renders as part of the letter's own flat local
+       content, so it correctly rotates along with the letter's own
+       rotateY/translateZ rather than staying pinned to the screen. */
+    text-shadow:
+      .032em .032em 0 rgba(0,0,0,.88),.064em .064em 0 rgba(0,0,0,.88),
+      .096em .096em 0 rgba(0,0,0,.88),.128em .128em 0 rgba(0,0,0,.88),
+      .16em .16em 0 rgba(0,0,0,.88),.192em .192em 0 rgba(0,0,0,.88);
+  }
+  /* Shine sweep, brought back from the old SVG version: a bright diagonal
+     band drifting across the letters, on its own layer since the base
+     letters already use a solid --c color (background-clip:text needs
+     color:transparent, which would fight that). Identical position/rotation
+     to its .w3d-l twin via the same --x/--i, sitting a hair further out in
+     Z so it doesn't z-fight the base layer. animation-delay is staggered by
+     --x so the highlight visibly travels N→S across the word instead of
+     all letters flashing together. */
+  .w3d-shine{
+    position:absolute;left:50%;top:50%;pointer-events:none;
+    transform:translate(-50%,-50%) translateX(var(--x)) rotateY(calc((var(--i) - 6) * 3deg)) translateZ(2.201em);
+    font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;
+    font-size:clamp(28px,8.4vw,124px);line-height:.95;letter-spacing:-0.02em;white-space:pre;
+    /* Narrow spike, not a wide band — a wide one plus the per-letter delay
+       stagger below overlaps enough that every letter lights up together
+       and it reads as the whole word flashing, not one point of light
+       traveling across it. */
+    background-image:linear-gradient(100deg,transparent 44%,rgba(255,255,255,.95) 50%,transparent 56%);
+    background-size:400% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    animation:w3d-shine-sweep 3.2s linear infinite;
+    /* NOTE: must key off --i (a plain unitless number), not --x — --x
+       carries "em", and length*time isn't a valid calc(); that silently
+       fell back to animation-delay:0s on *every* letter (invalid values
+       reset to the property's initial value, not an error), which is why
+       this looked like the whole word flashing together instead of
+       staggering: there was no stagger at all, all 12 were firing in sync. */
+    animation-delay:calc(var(--i) * -0.22s);
+  }
+  @keyframes w3d-shine-sweep{
+    0%{background-position-x:260%;}
+    100%{background-position-x:-260%;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .w3d-shine{ animation:none; display:none; }
   }
   .hero-mid{
     flex:1;display:flex;align-items:center;justify-content:center;position:relative;
@@ -383,6 +439,21 @@
             <span class="w3d-l" style="--i:10;--x:2.40em;--c:#FFD43B">I</span>
             <span class="w3d-l" style="--i:11;--x:3.00em;--c:#51CF66">D</span>
             <span class="w3d-l" style="--i:12;--x:3.59em;--c:#DA77F2">S</span>
+            <!-- Shine overlay twins: same --i/--x as the base letters above,
+                 so they line up exactly; see .w3d-shine for why this is a
+                 separate layer rather than combined onto .w3d-l. -->
+            <span class="w3d-shine" style="--i:0;--x:-3.58em">N</span>
+            <span class="w3d-shine" style="--i:1;--x:-2.99em">O</span>
+            <span class="w3d-shine" style="--i:2;--x:-2.39em">V</span>
+            <span class="w3d-shine" style="--i:3;--x:-1.80em">A</span>
+            <span class="w3d-shine" style="--i:4;--x:-1.20em">B</span>
+            <span class="w3d-shine" style="--i:5;--x:-0.60em">L</span>
+            <span class="w3d-shine" style="--i:6;--x:0em">E</span>
+            <span class="w3d-shine" style="--i:7;--x:0.60em">U</span>
+            <span class="w3d-shine" style="--i:9;--x:1.80em">K</span>
+            <span class="w3d-shine" style="--i:10;--x:2.40em">I</span>
+            <span class="w3d-shine" style="--i:11;--x:3.00em">D</span>
+            <span class="w3d-shine" style="--i:12;--x:3.59em">S</span>
           </div>
         </div>
         <div class="meaning">NovaBleu Kids <b>= Sparkled Imaginative Kids</b></div>
@@ -393,28 +464,55 @@
         var wrap = document.getElementById('wordmark3d');
         var ring = document.getElementById('wordmark3dRing');
         if(!wrap || !ring) return;
-        // Clamped to ±LIMIT: past 90deg the ring is edge-on to the camera and,
-        // with backface-visibility:hidden on each letter, the whole wordmark
-        // just vanishes into blank space until it swings back past 270deg —
-        // reads as broken, not fun. Staying well inside that keeps it always
-        // at least partly legible, more "tilt a sign" than "spin into a void".
-        var LIMIT = 55;
-        var rotation = 0, dragging = false, startX = 0, startRotation = 0, moved = false;
 
-        function apply(){ ring.style.transform = 'rotateY(' + rotation + 'deg)'; }
-        function clamp(v){ return Math.max(-LIMIT, Math.min(LIMIT, v)); }
+        // The ring auto-spins forever via the CSS "w3d-spin" animation
+        // (angle = 0 at spinBaseTime, +360deg every SPIN_MS, looping). To grab
+        // it mid-spin: pause the CSS animation, compute the angle it was AT
+        // that instant from elapsed time (no matrix parsing needed), then
+        // drive rotateY manually while dragging. On release: restart the CSS
+        // animation with a *negative* animation-delay equal to how far into
+        // the cycle the release angle is, so it keeps spinning onward from
+        // exactly that position instead of snapping back to 0.
+        var SPIN_MS = 16000;
+        var spinBaseTime = Date.now();
+        var dragging = false, startX = 0, startRotation = 0;
+
+        function angleNow(){
+          var elapsed = Date.now() - spinBaseTime;
+          return ((elapsed % SPIN_MS) + SPIN_MS) % SPIN_MS / SPIN_MS * 360;
+        }
+        function setManual(angle){ ring.style.transform = 'rotateY(' + angle + 'deg)'; }
+        function resumeSpinFrom(angle){
+          var progress = ((angle % 360) + 360) % 360 / 360;
+          spinBaseTime = Date.now() - progress * SPIN_MS;
+          ring.style.transform = '';
+          ring.style.animation = 'none';
+          void ring.offsetWidth; // force reflow so the removal actually registers
+          ring.style.animation = 'w3d-spin ' + (SPIN_MS / 1000) + 's linear infinite';
+          ring.style.animationDelay = '-' + (progress * SPIN_MS / 1000) + 's';
+        }
 
         function down(x){
-          dragging = true; moved = false; startX = x; startRotation = rotation;
+          dragging = true; startX = x; startRotation = angleNow();
+          // animation-play-state:paused still wins the cascade over an inline
+          // transform for the property it's animating — has to be fully
+          // cleared (not just paused) or manual drag values get silently
+          // overridden and the wordmark barely moves.
+          ring.style.animation = 'none';
+          setManual(startRotation);
           wrap.classList.add('dragging');
         }
         function move(x){
           if(!dragging) return;
-          if(Math.abs(x - startX) > 3) moved = true;
-          rotation = clamp(startRotation + (x - startX) * 0.4);
-          apply();
+          setManual(startRotation + (x - startX) * 0.4);
         }
-        function up(){ dragging = false; wrap.classList.remove('dragging'); }
+        function up(){
+          if(!dragging) return;
+          dragging = false;
+          wrap.classList.remove('dragging');
+          var m = ring.style.transform.match(/rotateY\(([-\d.]+)deg\)/);
+          resumeSpinFrom(m ? parseFloat(m[1]) : angleNow());
+        }
 
         wrap.addEventListener('mousedown', function(e){ wrap.focus(); down(e.clientX); e.preventDefault(); });
         window.addEventListener('mousemove', function(e){ move(e.clientX); });
@@ -425,8 +523,8 @@
         window.addEventListener('touchend', up);
 
         wrap.addEventListener('keydown', function(e){
-          if(e.key === 'ArrowLeft'){ rotation = clamp(rotation - 12); apply(); e.preventDefault(); }
-          if(e.key === 'ArrowRight'){ rotation = clamp(rotation + 12); apply(); e.preventDefault(); }
+          if(e.key === 'ArrowLeft'){ resumeSpinFrom(angleNow() - 12); e.preventDefault(); }
+          if(e.key === 'ArrowRight'){ resumeSpinFrom(angleNow() + 12); e.preventDefault(); }
         });
       })();
       </script>
