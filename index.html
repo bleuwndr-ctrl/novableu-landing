@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&family=Roboto+Mono:ital,wght@1,500;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#000000;
-    --ink:#FFFFFF;
-    --grey:#B5B4AC;
-    --line:#F2F2EE;
-    --hairline:rgba(255,255,255,0.22);
+    --bg:#FFFFFF;
+    --ink:#000000;
+    --grey:#4A4B53;
+    --line:#0D0D11;
+    --hairline:rgba(0,0,0,0.22);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -24,7 +24,7 @@
   }
   .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
   a{text-decoration:none;color:inherit;}
-  ::selection{background:var(--ink);color:#000;}
+  ::selection{background:var(--ink);color:var(--bg);}
 
   /* ── 5 SKINNY SPARK EXPLOSIONS ───────────────── */
   .sparks{position:fixed;inset:0;z-index:0;pointer-events:none;}
@@ -60,13 +60,13 @@
   .ml-side.right{text-align:right;}
   .topnav{display:flex;gap:48px;align-items:center;}
   .topnav a{
-    color:#fff;font-weight:700;font-size:17.5px;letter-spacing:3.5px;text-transform:uppercase;
+    color:var(--ink);font-weight:700;font-size:17.5px;letter-spacing:3.5px;text-transform:uppercase;
     white-space:nowrap;
   }
   .topnav a:hover{opacity:.65;}
   .topnav .home{display:inline-flex;align-items:center;}
   .topnav .home svg{width:31px;height:31px;}
-  .topnav a.active{border-bottom:2px solid #fff;padding-bottom:4px;}
+  .topnav a.active{border-bottom:2px solid var(--ink);padding-bottom:4px;}
   section{scroll-margin-top:84px;}
   .hero-name{margin-top:10px;}
   .hero-name h1{
@@ -139,9 +139,9 @@
     display:flex;align-items:center;justify-content:center;
   }
   .mbox .ph .tag{
-    position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;
   }
-  .mbox .ph .soon{font-style:italic;font-size:13px;color:var(--grey);}
+  .mbox .ph .soon{font-style:italic;font-size:13px;color:#B5B4AC;}
   .mbox .cap{margin-top:12px;font-size:15px;}
   .mbox .cap .n{color:var(--grey);margin-right:8px;}
   .mb1 .ph{aspect-ratio:4/5;}
@@ -165,7 +165,7 @@
   .phase .picon svg{width:52px;height:52px;display:block;}
   .phase .min{font-size:14px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin:26px 0 8px;}
   .phase h4{font-size:21px;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:10px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;line-height:1.25;}
-  .phase p{font-size:17px;color:#D8D7CF;line-height:1.7;}
+  .phase p{font-size:17px;color:#272830;line-height:1.7;}
 
   /* join */
   .join{text-align:center;}
@@ -174,10 +174,10 @@
   }
   .join p{max-width:480px;margin:0 auto 38px;color:var(--grey);}
   .cta{
-    display:inline-block;background:var(--ink);color:#000;padding:20px 46px;
+    display:inline-block;background:var(--ink);color:var(--bg);padding:20px 46px;
     font-size:15px;letter-spacing:1px;border:1.5px solid var(--ink);
   }
-  .cta:hover{background:#000;color:var(--ink);}
+  .cta:hover{background:var(--bg);color:var(--ink);}
   .join .soon-line{margin-top:26px;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);}
 
   /* about me */
@@ -186,20 +186,20 @@
     border:1.5px solid var(--line);background:#000;aspect-ratio:3/4;position:relative;
     display:flex;align-items:center;justify-content:center;
   }
-  .portrait .ph .tag{position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;}
-  .portrait .ph .soon{font-style:italic;font-size:15px;color:var(--grey);}
+  .portrait .ph .tag{position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+  .portrait .ph .soon{font-style:italic;font-size:15px;color:#B5B4AC;}
   .portrait .cap{margin-top:12px;font-size:15px;}
   .creds{border:1px solid var(--line);margin-top:26px;padding:24px 26px;}
   .creds .ct{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:14px;}
   .creds ul{list-style:none;padding:0;margin:0;}
-  .creds li{font-size:14.5px;line-height:1.6;color:#D8D7CF;padding:7px 0;border-top:1px solid var(--hairline);}
+  .creds li{font-size:14.5px;line-height:1.6;color:#272830;padding:7px 0;border-top:1px solid var(--hairline);}
   .creds li:first-child{border-top:none;}
   .aboutme-copy .lead-quote{
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
     font-size:clamp(20px,2.6vw,31px);line-height:1.4;margin-bottom:30px;
   }
   .aboutme-copy .lead-quote .q{color:var(--grey);}
-  .aboutme-copy p{color:#D8D7CF;font-size:17px;line-height:1.85;margin-bottom:20px;max-width:62ch;}
+  .aboutme-copy p{color:#272830;font-size:17px;line-height:1.85;margin-bottom:20px;max-width:62ch;}
   .aboutme-copy .sig{font-style:italic;color:var(--grey);font-size:15px;}
 
   /* ethos */
@@ -207,16 +207,16 @@
     font-style:italic;text-align:center;font-size:clamp(26px,4vw,48px);line-height:1.3;
     max-width:880px;margin:0 auto 26px;
   }
-  .ethos-sub{text-align:center;color:#D8D7CF;font-size:16.5px;line-height:1.8;max-width:640px;margin:0 auto 70px;}
+  .ethos-sub{text-align:center;color:#272830;font-size:16.5px;line-height:1.8;max-width:640px;margin:0 auto 70px;}
   .creed{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--line);}
   .creed .c{padding:36px 30px 42px;border-right:1px solid var(--line);}
   .creed .c:last-child{border-right:none;}
   .creed .cn{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:24px;margin-bottom:18px;}
   .creed h4{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:18px;text-transform:uppercase;line-height:1.3;margin-bottom:12px;}
-  .creed p{font-size:15.5px;color:#D8D7CF;line-height:1.7;}
+  .creed p{font-size:15.5px;color:#272830;line-height:1.7;}
   .ethos-mission{
     max-width:720px;margin:70px auto 0;border:1px solid var(--line);padding:34px 36px;
-    font-size:17px;line-height:1.9;color:#EDEDEA;
+    font-size:17px;line-height:1.9;color:#121215;
   }
   .ethos-mission .k{border-bottom:1px solid var(--ink);}
 
@@ -225,11 +225,11 @@
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
     font-size:clamp(28px,4.4vw,54px);letter-spacing:-0.02em;text-transform:uppercase;line-height:1.1;margin-bottom:20px;
   }
-  .gal-sub{color:#D8D7CF;font-size:16.5px;line-height:1.8;max-width:640px;margin-bottom:56px;}
+  .gal-sub{color:#272830;font-size:16.5px;line-height:1.8;max-width:640px;margin-bottom:56px;}
   .gal-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
   .gal-grid .g{aspect-ratio:3/4;border:1px solid var(--line);background:#000;position:relative;}
-  .gal-grid .gi{position:absolute;top:6px;left:9px;font-size:10.5px;letter-spacing:1px;color:var(--grey);}
-  .gal-grid .gs{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-style:italic;color:#55544E;}
+  .gal-grid .gi{position:absolute;top:6px;left:9px;font-size:10.5px;letter-spacing:1px;color:#B5B4AC;}
+  .gal-grid .gs{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-style:italic;color:#AAABB1;}
   .gal-cap{margin-top:22px;font-size:13px;color:var(--grey);display:flex;justify-content:space-between;}
 
   /* footer */
@@ -333,7 +333,7 @@
   <header class="microline" id="top">
     <span class="ml-side">A Creative Confidence Studio — Kids 9–12</span>
     <nav class="topnav">
-      <a class="home" href="#top" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg></a>
+      <a class="home" href="#top" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg></a>
       <a href="NVB-About-Me.html">About Me</a>
       <a href="NVB-Ethos.html">Ethos</a>
       <a href="NVB-Gallery.html">Gallery</a>
@@ -348,8 +348,8 @@
         <svg class="name-svg" viewBox="0 92 1170 192" role="img" aria-label="NOVABLEU KIDS">
           <defs>
             <linearGradient id="nvbgrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#FFFFFF"/>
-              <stop offset=".17" stop-color="#FFFFFF"/>
+              <stop offset="0" stop-color="#000000"/>
+              <stop offset=".17" stop-color="#000000"/>
               <stop offset=".40" stop-color="#0038E8"/>
               <stop offset=".64" stop-color="#0038E8"/>
               <stop offset=".71" stop-color="#FF6B6B"/>
@@ -427,25 +427,25 @@
     <div class="phase-grid">
       <div class="phase">
         <div class="pnum">01</div>
-        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6a12 12 0 0 0-7 21.6c1.6 1.2 2.5 3 2.7 4.9h8.6c.2-1.9 1.1-3.7 2.7-4.9A12 12 0 0 0 24 6Z"/><path d="M20 37.5h8M21.5 41.5h5"/><path d="M24 14.5v6M21 17.5h6" stroke-width="2"/></svg></div>
+        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6a12 12 0 0 0-7 21.6c1.6 1.2 2.5 3 2.7 4.9h8.6c.2-1.9 1.1-3.7 2.7-4.9A12 12 0 0 0 24 6Z"/><path d="M20 37.5h8M21.5 41.5h5"/><path d="M24 14.5v6M21 17.5h6" stroke-width="2"/></svg></div>
         <div class="min">5 min</div><h4>Priming</h4>
         <p>Warm-up to unlock creative thinking before paper is touched.</p>
       </div>
       <div class="phase">
         <div class="pnum">02</div>
-        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 35l-2.5 7.5L18 40 36.5 21.5l-5-5L13 35Z"/><path d="M29 19l5 5"/><path d="M34 9.5l4.5 4.5 2.5-2.5-4.5-4.5L34 9.5Z" fill="#fff"/><path d="M6 44c3.5-.5 6-1.5 8.5-3" stroke-width="2"/></svg></div>
+        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 35l-2.5 7.5L18 40 36.5 21.5l-5-5L13 35Z"/><path d="M29 19l5 5"/><path d="M34 9.5l4.5 4.5 2.5-2.5-4.5-4.5L34 9.5Z" fill="#000"/><path d="M6 44c3.5-.5 6-1.5 8.5-3" stroke-width="2"/></svg></div>
         <div class="min">30 min</div><h4>Coaching + Mila</h4>
         <p>Live instruction plus each student's personalized AI reference.</p>
       </div>
       <div class="phase">
         <div class="pnum">03</div>
-        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="15" r="5.5"/><path d="M14.5 35c0-5.5 4.2-9.5 9.5-9.5s9.5 4 9.5 9.5"/><circle cx="9.5" cy="18.5" r="4"/><path d="M3.5 33.5c0-4.2 2.8-7.3 6.5-7.5"/><circle cx="38.5" cy="18.5" r="4"/><path d="M44.5 33.5c0-4.2-2.8-7.3-6.5-7.5"/></svg></div>
+        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="15" r="5.5"/><path d="M14.5 35c0-5.5 4.2-9.5 9.5-9.5s9.5 4 9.5 9.5"/><circle cx="9.5" cy="18.5" r="4"/><path d="M3.5 33.5c0-4.2 2.8-7.3 6.5-7.5"/><circle cx="38.5" cy="18.5" r="4"/><path d="M44.5 33.5c0-4.2-2.8-7.3-6.5-7.5"/></svg></div>
         <div class="min">20 min</div><h4>Group Cohort Art Games</h4>
         <p>Pair breakouts. Creative games. The group dynamic is the product.</p>
       </div>
       <div class="phase">
         <div class="pnum">04</div>
-        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6.5" width="27" height="35" rx="2.5"/><path d="M16 15h13M16 21.5h13M16 28h7.5" stroke-width="2"/><path d="M27.5 36.5l9.5-9.5 3.5 3.5-9.5 9.5-4.5 1 1-4.5Z" fill="#fff" stroke-width="2"/></svg></div>
+        <div class="picon"><svg viewBox="0 0 48 48" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6.5" width="27" height="35" rx="2.5"/><path d="M16 15h13M16 21.5h13M16 28h7.5" stroke-width="2"/><path d="M27.5 36.5l9.5-9.5 3.5 3.5-9.5 9.5-4.5 1 1-4.5Z" fill="#000" stroke-width="2"/></svg></div>
         <div class="min">5 min</div><h4>Reflection</h4>
         <p>Creative Log — every decision written in their own words.</p>
       </div>
