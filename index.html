@@ -76,10 +76,15 @@
   }
   .name-svg{width:100%;height:auto;display:block;margin-top:8px;}
   .name-svg text{font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;letter-spacing:0;}
-  .sheen{animation:sheen-sweep 4.6s linear infinite;}
-  @keyframes sheen-sweep{
-    from{transform:translateX(0) skewX(-18deg);}
-    to{transform:translateX(2100px) skewX(-18deg);}
+  /* Block-letter 3D: stepped text-shadow "extrusion" per letter, in that
+     letter's own dark shade via --shade (set per tspan) rather than one
+     flat black — reads as a colored side face, not a generic drop shadow. */
+  .b3d-shadow tspan{
+    text-shadow:
+      1px 1px 0 var(--shade),2px 2px 0 var(--shade),3px 3px 0 var(--shade),
+      4px 4px 0 var(--shade),5px 5px 0 var(--shade),6px 6px 0 var(--shade),
+      7px 7px 0 var(--shade),8px 8px 0 var(--shade),9px 9px 0 var(--shade),
+      10px 10px 0 var(--shade);
   }
   .meaning{
     font-style:italic;font-size:16px;color:var(--grey);margin-top:16px;letter-spacing:.5px;
@@ -345,33 +350,32 @@
   <div class="screen1">
     <div>
       <div class="hero-name">
-        <svg class="name-svg" viewBox="0 92 1170 192" role="img" aria-label="NOVABLEU KIDS">
-          <defs>
-            <linearGradient id="nvbgrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#000000"/>
-              <stop offset=".17" stop-color="#000000"/>
-              <stop offset=".40" stop-color="#0038E8"/>
-              <stop offset=".64" stop-color="#0038E8"/>
-              <stop offset=".71" stop-color="#FF6B6B"/>
-              <stop offset=".765" stop-color="#FFA94D"/>
-              <stop offset=".82" stop-color="#FFE066"/>
-              <stop offset=".875" stop-color="#69DB7C"/>
-              <stop offset=".93" stop-color="#4DABF7"/>
-              <stop offset="1" stop-color="#DA77F2"/>
-            </linearGradient>
-            <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
-              <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".75"/>
-              <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-            </linearGradient>
-            <clipPath id="nameclip">
-              <text font-size="136" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
-            </clipPath>
-          </defs>
-          <text font-size="136" fill="url(#nvbgrad)" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
-          <g clip-path="url(#nameclip)">
-            <rect class="sheen" x="-480" y="88" width="440" height="200" fill="url(#shine)"/>
-          </g>
+        <!-- Chunky 3D block-letter wordmark, per Charles's reference (a voxel-
+             style render: flat colored front faces, dark side faces, a light
+             rim catching the top-left edge). Pure CSS/SVG can't replicate a
+             true rendered voxel grid, so this is the closest honest
+             approximation: 3 stacked text layers per letter — a stepped
+             text-shadow "extrusion" in a dark shade (the side), a slightly
+             offset lighter tint peeking out top-left (the rim highlight),
+             and the flat brand-color face on top. Same x/y/rotate arc as the
+             original flat wordmark (recovered from its SVG coordinates), so
+             the letters still read as one continuous curved word. -->
+        <svg class="name-svg name-svg-3d" viewBox="0 80 1170 210" role="img" aria-label="NOVABLEU KIDS">
+          <text font-size="136" class="b3d-shadow" fill="none"
+            x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 756.0 837.4 918.7 999.8"
+            y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 218.7 223.9 231.1 240.1"
+            rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 3.7 5.0 6.3 7.6"
+          ><tspan style="--shade:#0a1442">N</tspan><tspan style="--shade:#0a1442">O</tspan><tspan style="--shade:#0f2470">V</tspan><tspan style="--shade:#0f2470">A</tspan><tspan style="--shade:#16357a">B</tspan><tspan style="--shade:#274a8f">L</tspan><tspan style="--shade:#274a8f">E</tspan><tspan style="--shade:#35548f">U</tspan><tspan style="--shade:#4a0619">K</tspan><tspan style="--shade:#7a3c05">I</tspan><tspan style="--shade:#164f26">D</tspan><tspan style="--shade:#33195e">S</tspan></text>
+          <text font-size="136" class="b3d-rim"
+            x="21.8 102.6 183.6 264.8 346.2 427.7 509.3 590.9 754.0 835.4 916.7 997.8"
+            y="254.2 242.6 232.8 224.8 218.8 214.6 212.3 211.8 216.7 221.9 229.1 238.1"
+            rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 3.7 5.0 6.3 7.6"
+          ><tspan fill="#5570c9">N</tspan><tspan fill="#5570c9">O</tspan><tspan fill="#6f8bf5">V</tspan><tspan fill="#6f8bf5">A</tspan><tspan fill="#85a3f7">B</tspan><tspan fill="#a8c4f8">L</tspan><tspan fill="#a8c4f8">E</tspan><tspan fill="#c4dcfb">U</tspan><tspan fill="#e0577f">K</tspan><tspan fill="#f5b06a">I</tspan><tspan fill="#86d9a0">D</tspan><tspan fill="#b18eea">S</tspan></text>
+          <text font-size="136" class="b3d-face"
+            x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 756.0 837.4 918.7 999.8"
+            y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 218.7 223.9 231.1 240.1"
+            rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 3.7 5.0 6.3 7.6"
+          ><tspan fill="#1a2a6b">N</tspan><tspan fill="#1a2a6b">O</tspan><tspan fill="#2447e0">V</tspan><tspan fill="#2447e0">A</tspan><tspan fill="#3f6de8">B</tspan><tspan fill="#6f9df0">L</tspan><tspan fill="#6f9df0">E</tspan><tspan fill="#9dc0f5">U</tspan><tspan fill="#a3123f">K</tspan><tspan fill="#e07a1f">I</tspan><tspan fill="#3fae5c">D</tspan><tspan fill="#7a4fc9">S</tspan></text>
         </svg>
         <div class="meaning">NovaBleu Kids <b>= Sparkled Imaginative Kids</b></div>
       </div>
