@@ -237,6 +237,43 @@
   }
   .abox .ph .soon{font-style:italic;font-size:12.5px;color:#B5B4AC;}
   .abox .cap{margin-top:12px;font-size:14px;color:var(--grey);}
+  .abox .ph{cursor:pointer;transition:border-color .15s;}
+  .abox .ph:hover{border-color:var(--ink);}
+
+  /* lightbox (shared pattern with the Gallery page) */
+  .lb{
+    position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.95);
+    display:none;align-items:center;justify-content:center;flex-direction:column;padding:40px 90px;
+  }
+  .lb.open{display:flex;}
+  .lb-frame{
+    max-width:min(1100px,88vw);max-height:78vh;border:1.5px solid var(--line);background:#000;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .lb-frame img{max-width:88vw;max-height:78vh;display:block;object-fit:contain;}
+  .lb-ph{
+    width:min(62vw,460px);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;
+    font-style:italic;font-size:16px;color:#B5B4AC;
+  }
+  .lb-cap{margin-top:18px;font-size:13.5px;letter-spacing:.5px;color:#D8D7CF;text-align:center;}
+  .lb-x{
+    position:fixed;top:16px;right:24px;z-index:101;background:none;border:none;cursor:pointer;
+    color:#fff;font-family:'Courier New',monospace;font-size:38px;line-height:1;
+  }
+  .lb-x:hover,.lb-nav:hover{opacity:.6;}
+  .lb-nav{
+    position:fixed;top:50%;transform:translateY(-50%);z-index:101;cursor:pointer;
+    background:none;border:1px solid var(--hairline);border-radius:50%;width:54px;height:54px;
+    color:#fff;font-family:'Courier New',monospace;font-size:24px;
+  }
+  .lb-prev{left:22px;}
+  .lb-next{right:22px;}
+  @media (max-width:860px){
+    .lb{padding:24px 16px;}
+    .lb-nav{width:42px;height:42px;font-size:19px;}
+    .lb-prev{left:8px;}
+    .lb-next{right:8px;}
+  }
 
   /* ethos */
   .ethos-state{
@@ -437,6 +474,80 @@
 
 
 </main>
+
+<!--
+  HOW TO ADD A DRAWING LATER:
+  Inside any box, e.g. <div class="ph">, add an image tag:
+    <div class="ph" data-title="Age 8">
+      <span class="tag">Kid</span>
+      <img src="art/kid-drawing.jpg" alt="Charles's drawing as a kid" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    </div>
+  (You can delete the <span class="soon">Coming soon</span> line once a real image is in.)
+  The pop-up below picks the image up automatically and fits it to the screen.
+  data-title is optional — it becomes part of the caption under the full-screen view.
+-->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+  <button class="lb-x" id="lbX" aria-label="Close">&times;</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">&larr;</button>
+  <div class="lb-frame" id="lbFrame"></div>
+  <div class="lb-cap" id="lbCap"></div>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&rarr;</button>
+</div>
+
+<script>
+(function(){
+  var tiles = [].slice.call(document.querySelectorAll('.artlife-grid .abox'));
+  var lb = document.getElementById('lb');
+  var frame = document.getElementById('lbFrame');
+  var cap = document.getElementById('lbCap');
+  var cur = 0;
+
+  function render(i){
+    cur = (i + tiles.length) % tiles.length;
+    var t = tiles[cur];
+    var ph = t.querySelector('.ph');
+    var img = ph.querySelector('img');
+    frame.innerHTML = '';
+    if(img){
+      var big = document.createElement('img');
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt || '';
+      frame.appendChild(big);
+    } else {
+      var placeholder = document.createElement('div');
+      placeholder.className = 'lb-ph';
+      placeholder.textContent = 'Coming soon';
+      frame.appendChild(placeholder);
+    }
+    var label = t.querySelector('.cap') ? t.querySelector('.cap').textContent : '';
+    var extra = ph.getAttribute('data-title');
+    cap.textContent = label + (extra ? ' — ' + extra : '');
+  }
+  function openAt(i){
+    render(i);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  tiles.forEach(function(t, i){
+    t.querySelector('.ph').addEventListener('click', function(){ openAt(i); });
+  });
+  document.getElementById('lbX').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function(e){ e.stopPropagation(); render(cur - 1); });
+  document.getElementById('lbNext').addEventListener('click', function(e){ e.stopPropagation(); render(cur + 1); });
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowLeft') render(cur - 1);
+    if(e.key === 'ArrowRight') render(cur + 1);
+  });
+})();
+</script>
 
 <footer>
   <img src="bleuwndr-logo-white.png" alt="Bleuwndr">
