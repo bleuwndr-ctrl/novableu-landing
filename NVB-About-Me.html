@@ -214,8 +214,29 @@
     font-size:clamp(20px,2.6vw,31px);line-height:1.4;margin-bottom:30px;
   }
   .aboutme-copy .lead-quote .q{color:var(--grey);}
+  .aboutme-copy h3{
+    font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
+    font-size:clamp(22px,3vw,32px);letter-spacing:-0.01em;line-height:1.25;margin-bottom:26px;
+  }
   .aboutme-copy p{color:#272830;font-size:17px;line-height:1.85;margin-bottom:20px;max-width:62ch;}
   .aboutme-copy .sig{font-style:italic;color:var(--grey);font-size:15px;}
+
+  /* art through the years — 4 placeholder boxes */
+  .artlife{margin-top:90px;}
+  .artlife-head{
+    font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
+    font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:28px;
+  }
+  .artlife-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .abox .ph{
+    border:1.5px solid var(--line);background:#000;aspect-ratio:3/4;position:relative;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .abox .ph .tag{
+    position:absolute;top:10px;left:10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;
+  }
+  .abox .ph .soon{font-style:italic;font-size:12.5px;color:#B5B4AC;}
+  .abox .cap{margin-top:12px;font-size:14px;color:var(--grey);}
 
   /* ethos */
   .ethos-state{
@@ -261,6 +282,7 @@
     .topnav{gap:24px;}
     .topnav a{font-size:13.5px;letter-spacing:2px;}
     .aboutme-grid{grid-template-columns:1fr;gap:40px;}
+    .artlife-grid{grid-template-columns:repeat(2,1fr);}
     .creed{grid-template-columns:1fr;}
     .creed .c{border-right:none;border-bottom:1px solid var(--line);}
     .gal-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
@@ -379,11 +401,36 @@
         </div>
       </div>
       <div class="aboutme-copy">
-        <div class="lead-quote"><span class="q">"</span>I'm not a veteran educator with a proven system and 500 alumni. I'm a first-time founder who spent 20 years building something I didn't have a name for — and finally figured out what it was.<span class="q">"</span></div>
-        <p>Growing up, I didn't learn art to feel something. I learned art to prove something. Could you make it look real? Could you copy it correctly? Art was a performance, not a language.</p>
-        <p>It took years of self-teaching, writing, and building my own creative identity to understand what art actually is: not a showcase of skill — a way of processing the world and putting your specific version of it on paper. That transformation changed everything about how I create, and it made me ask one question: <b>what if kids learned that from the beginning?</b></p>
-        <p>Working with kids daily as a behavior technician, I noticed their drawings already have personality, energy, and a distinct voice. They aren't waiting to be taught how to be creative — they're waiting for an environment where that creativity has somewhere to go.</p>
-        <p class="sig">NovaBleu Kids is that question turned into a program. I teach every session. I iterate after every cohort. There is no layer between the product and the person who built it.</p>
+        <h3>Why I Created NovaBleu Kids</h3>
+        <p>Growing up in Los Angeles, I loved to draw. The city was full of art everywhere I looked, murals, communities, art walks, and it became part of how I moved through the world. My parents used to take me to cultural festivals, film screenings, and art shows, and all of that shaped who I was becoming before I even understood it.</p>
+        <p>I remember my parents trying so hard to nurture that in me. When I was about twelve, they enrolled me in an art program, and I was so excited. But between the cost and the drive, we could only make it a couple times before we had to let it go. I still remember how disappointing that was. Wanting something that badly and watching it slip away for reasons that had nothing to do with talent or desire.</p>
+        <p>Looking back, what I actually needed wasn't more art classes. It was someone who could help me take what was already in my head and actually get it onto paper. Someone to help me tell my story, in my own way. I never really found that. Not in school, not in the classes I took growing up, not even in college when I studied graphic design. I could learn technique all day long. Nobody ever taught me how to see my own world and build it.</p>
+        <p>I stopped drawing for almost ten years while I grew up, worked in healthcare, became an adult. But I never stopped noticing kids doodling, in classrooms, in hallways, that same spark I used to carry around myself.</p>
+        <p>And I started noticing something else too: today's kids have more access to inspiration and technology than I ever dreamed of, but somehow it's harder than ever for them to find their own voice underneath all that noise.</p>
+        <p>That's the gap I built NovaBleu Kids to close. Not to pull kids away from technology, but to hand it back to them the right way around, as a tool that sharpens their own imagination, instead of one more thing feeding them everyone else's. I want to be the guide I never had. Someone who doesn't teach a kid how to draw, but helps them see the world they're already carrying around inside them, and shows them how to build it.</p>
+        <p class="sig">Everything I've collected along the way, art since I was a kid, a decade of drawing, tutoring here and there, my years in behavior health, working in tech, it all led here. NovaBleu Kids is the program I wish existed when I was twelve years old.</p>
+      </div>
+    </div>
+
+    <div class="artlife">
+      <div class="artlife-head">Art Through The Years</div>
+      <div class="artlife-grid">
+        <div class="abox">
+          <div class="ph"><span class="tag">Kid</span><span class="soon">Coming soon</span></div>
+          <div class="cap">As a kid</div>
+        </div>
+        <div class="abox">
+          <div class="ph"><span class="tag">Teenage</span><span class="soon">Coming soon</span></div>
+          <div class="cap">As a teenager</div>
+        </div>
+        <div class="abox">
+          <div class="ph"><span class="tag">Young Adult</span><span class="soon">Coming soon</span></div>
+          <div class="cap">As a young adult</div>
+        </div>
+        <div class="abox">
+          <div class="ph"><span class="tag">Now</span><span class="soon">Coming soon</span></div>
+          <div class="cap">Now</div>
+        </div>
       </div>
     </div>
   </section>
