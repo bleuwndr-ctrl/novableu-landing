@@ -180,9 +180,14 @@
   .cta:hover{background:var(--bg);color:var(--ink);}
   .join .soon-line{margin-top:26px;font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);}
 
-  /* about me */
-  .aboutme-grid{display:grid;grid-template-columns:.85fr 1.35fr;gap:52px;align-items:start;}
-  .portrait .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  /* about me — photos, then bio, then background, stacked and centered on the page */
+  .aboutme-centered{max-width:640px;margin:0 auto;}
+  .aboutme-centered .portrait{text-align:center;}
+  .aboutme-centered .aboutme-copy{margin-top:74px;text-align:left;}
+  .aboutme-centered .aboutme-copy h3{text-align:center;}
+  .aboutme-centered .aboutme-copy .sig{text-align:center;}
+  .aboutme-centered .creds{margin-top:74px;}
+  .portrait .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:460px;margin:0 auto;}
   .portrait .ph{
     border:1.5px solid var(--line);background:#000;aspect-ratio:3/4;position:relative;
     overflow:hidden;
@@ -318,7 +323,6 @@
     .microline{justify-content:center;}
     .topnav{gap:24px;}
     .topnav a{font-size:13.5px;letter-spacing:2px;}
-    .aboutme-grid{grid-template-columns:1fr;gap:40px;}
     .artlife-grid{grid-template-columns:repeat(2,1fr);}
     .creed{grid-template-columns:1fr;}
     .creed .c{border-right:none;border-bottom:1px solid var(--line);}
@@ -415,26 +419,16 @@
     <span class="ml-side right cs">Coming Soon · 2026</span>
   </header>
 
-  <!-- 04 ABOUT ME -->
+  <!-- 01 ABOUT ME -->
   <section id="aboutme">
     <div class="sec-label"><span class="num">01</span><span>/ about me — the founder</span><span class="rule"></span></div>
-    <div class="aboutme-grid">
+    <div class="aboutme-centered">
       <div class="portrait">
         <div class="duo">
           <div class="ph"><img src="charles-then.jpg" alt="Charles as a kid — school photo"></div>
           <div class="ph"><img src="charles-now-2.jpeg" alt="Charles at graduation, Cal Poly Pomona"></div>
         </div>
         <div class="cap">Charles, a.k.a <b>Bleuwndr</b> — Founder &amp; Instructor</div>
-        <div class="creds">
-          <div class="ct">Background</div>
-          <ul>
-            <li><b>Visual Artist</b><span>20+ years of drawing experience</span></li>
-            <li><b>BA, Visual Communication Design</b><span>Cal Poly Pomona</span></li>
-            <li><b>Published Author</b><span>Essenc&iacute;sm: An Artist's Manifesto of the Soul</span></li>
-            <li><b>ABA Behavior Technician</b><span>Works directly with kids daily</span></li>
-            <li><b>Former Scrum Master</b><span>Project coordination at ASML</span></li>
-          </ul>
-        </div>
       </div>
       <div class="aboutme-copy">
         <h3>Why I Created NovaBleu Kids</h3>
@@ -447,12 +441,22 @@
         <p>Everything I've collected along the way, drawing since I was a kid, my years in behavior health, working in tech, it all led here.</p>
         <p class="sig">NovaBleu Kids is the program I wish existed when I was twelve years old.</p>
       </div>
+      <div class="creds">
+        <div class="ct">Background</div>
+        <ul>
+          <li><b>Visual Artist</b><span>20+ years of drawing experience</span></li>
+          <li><b>BA, Visual Communication Design</b><span>Cal Poly Pomona</span></li>
+          <li><b>Published Author</b><span>Essenc&iacute;sm: An Artist's Manifesto of the Soul</span></li>
+          <li><b>ABA Behavior Technician</b><span>Works directly with kids daily</span></li>
+          <li><b>Former Scrum Master</b><span>Project coordination at ASML</span></li>
+        </ul>
+      </div>
     </div>
 
     <div class="artlife">
       <div class="artlife-head">Art Through The Years</div>
       <div class="artlife-grid">
-        <div class="abox">
+        <div class="abox" hidden>
           <div class="ph"><span class="tag">Kid</span><span class="soon">Coming soon</span></div>
           <div class="cap">As a kid</div>
         </div>
