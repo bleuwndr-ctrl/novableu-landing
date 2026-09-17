@@ -130,6 +130,30 @@
   }
   .about .body-box .k{border-bottom:1px solid var(--ink);}
 
+  /* statements 01–03 — one idea fills the screen, Apple product-page pacing,
+     same fonts/hairlines/boxed-word device as the rest of the page, just at scale */
+  #what-we-do, #the-problem, #how-it-works{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  }
+  #what-we-do .sec-label, #the-problem .sec-label, #how-it-works .sec-label{
+    font-size:17px;letter-spacing:3px;margin-bottom:80px;
+  }
+  #what-we-do .sec-label .num, #the-problem .sec-label .num, #how-it-works .sec-label .num{
+    font-size:40px;
+  }
+  #what-we-do h2, #the-problem h2, #how-it-works h2{
+    font-size:clamp(48px,8.6vw,140px);line-height:.95;
+  }
+  #what-we-do h2 .boxed, #the-problem h2 .boxed, #how-it-works h2 .boxed{
+    border-width:3px;padding:0 22px 10px;
+  }
+  #what-we-do .aside, #the-problem .aside, #how-it-works .aside{
+    font-size:clamp(18px,2.2vw,26px);margin:34px 0;
+  }
+  #what-we-do h3, #the-problem h3, #how-it-works h3{
+    font-size:clamp(30px,4.8vw,64px);
+  }
+
   /* mila — 3 empty outline boxes, staggered */
   .mila-grid{
     display:grid;grid-template-columns:1.1fr .85fr 1fr;gap:34px;align-items:start;
@@ -446,8 +470,8 @@
     <div class="mila-note">"By the end, they're not just finishing a drawing — they're becoming a different kind of thinker."</div>
   </section>
 
-  <!-- 04 MILA AI -->
-  <section id="mila">
+  <!-- MILA AI gallery — hidden until the artwork is ready to show, per Charles -->
+  <section id="mila" hidden>
     <div class="sec-label"><span class="num">04</span><span>/ mila ai</span><span class="rule"></span></div>
     <div class="mila-grid">
       <div class="mbox mb1">
@@ -466,9 +490,9 @@
     <div class="mila-note">"The kid makes the decision. The AI serves it."</div>
   </section>
 
-  <!-- 05 JOIN -->
+  <!-- 04 JOIN -->
   <section class="join" id="join">
-    <div class="sec-label"><span class="num">05</span><span>/ join the cohort</span><span class="rule"></span></div>
+    <div class="sec-label"><span class="num">04</span><span>/ join the cohort</span><span class="rule"></span></div>
     <h2 class="rb">Let's build this together.</h2>
     <p>The free demo cohort is limited to keep groups small and personal. Reserve a spot and we'll send your Zoom link.</p>
     <a class="cta" href="NVB-Join.html">Reserve a free session</a>
