@@ -3,20 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>(function(){try{if(localStorage.getItem('nvbTheme')==='cream')document.documentElement.setAttribute('data-theme','cream');}catch(e){}})();</script>
 <title>About Me — NOVABLEU KIDS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&family=Roboto+Mono:ital,wght@0,400;0,700;1,500;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FFFFFF;
-    --ink:#000000;
-    --grey:#4A4B53;
-    --line:#0D0D11;
-    --hairline:rgba(0,0,0,0.22);
-  }
-  /* Cream sketchbook theme — toggled site-wide, saved in localStorage (theme-toggle.js) */
-  :root[data-theme="cream"]{
     --bg:#E8D9B8;
     --ink:#2A2118;
     --grey:#7A6F5C;
@@ -89,12 +80,6 @@
   .topnav .home{display:inline-flex;align-items:center;}
   .topnav .home svg{width:31px;height:31px;}
   .topnav a.active{border-bottom:2px solid var(--ink);padding-bottom:4px;}
-  .theme-toggle{
-    font-family:'Roboto Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:1.5px;
-    text-transform:uppercase;color:var(--ink);background:none;border:1px solid var(--line);
-    padding:7px 14px;cursor:pointer;white-space:nowrap;
-  }
-  .theme-toggle:hover{background:var(--ink);color:var(--bg);}
   section{scroll-margin-top:84px;}
   .hero-name{margin-top:10px;}
   .hero-name h1{
@@ -229,13 +214,23 @@
      holes down the left edge, torn away from the content by a dashed line */
   .creds{
     position:relative;background:var(--bg);border:1.5px solid var(--line);border-left:none;
-    max-width:640px;margin:80px auto 0;padding:28px 30px 24px 58px;
+    padding:28px 30px 24px 58px;
   }
   .creds::before{
     content:"";position:absolute;top:-1.5px;bottom:-1.5px;left:-1.5px;width:34px;
     border:1.5px solid var(--line);border-right:1px dashed var(--hairline);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='34' viewBox='0 0 28 34'%3E%3Ccircle cx='14' cy='17' r='7' fill='none' stroke='%230D0D11' stroke-width='2'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='34' viewBox='0 0 28 34'%3E%3Ccircle cx='14' cy='17' r='7' fill='none' stroke='%232A2118' stroke-width='2'/%3E%3C/svg%3E");
     background-repeat:repeat-y;background-position:center 15px;background-size:28px 34px;
+  }
+  /* Bottom row: resume on the left, Art Through The Years on the right,
+     equal shared width */
+  .bottom-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:90px;
+  }
+  .bottom-row .artlife{margin-top:0;}
+  .bottom-row .artlife-head{text-align:left;}
+  .bottom-row .artlife-grid{
+    grid-template-columns:repeat(auto-fit,minmax(110px,130px));justify-content:start;gap:14px;
   }
   .creds .ct{
     font-family:'Roboto Mono',monospace;font-weight:700;font-size:13px;letter-spacing:3px;
@@ -359,9 +354,10 @@
 
   @media (max-width:860px){
     .ml-side{display:none;}
-    .microline{justify-content:center;flex-wrap:wrap;row-gap:10px;}
+    .microline{justify-content:center;}
     .topnav{gap:24px;}
     .topnav a{font-size:13.5px;letter-spacing:2px;}
+    .bottom-row{grid-template-columns:1fr;gap:60px;}
     .artlife-grid{grid-template-columns:repeat(2,1fr);}
     .creed{grid-template-columns:1fr;}
     .creed .c{border-right:none;border-bottom:1px solid var(--line);}
@@ -474,9 +470,7 @@
       <a href="NVB-About-Me.html" class="active">About Me</a>
       <a href="NVB-Ethos.html">Ethos</a>
       <a href="NVB-Join.html">Join</a>
-    </nav>
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">Cream mode</button>
-    <span class="ml-side right cs">Coming Soon · 2026</span>
+    </nav>    <span class="ml-side right cs">Coming Soon · 2026</span>
   </header>
 
   <!-- ABOUT ME -->
@@ -488,37 +482,6 @@
           <div class="ph"><img src="charles-now-2.jpeg" alt="Charles at graduation, Cal Poly Pomona"></div>
         </div>
         <div class="cap">Charles, a.k.a <b>Bleuwndr</b> — Founder &amp; Instructor</div>
-      </div>
-    </div>
-
-    <div class="artlife">
-      <div class="artlife-head">Art Through The Years</div>
-      <div class="artlife-grid">
-        <div class="abox" hidden>
-          <div class="ph"><span class="tag">Kid</span><span class="soon">Coming soon</span></div>
-          <div class="cap">As a kid</div>
-        </div>
-        <div class="abox">
-          <div class="ph" data-title="Age 17, 2015">
-            <span class="tag">Teenage</span>
-            <img src="art/teen-2015.png" alt="Charles's drawing as a teenager, 2015" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          </div>
-          <div class="cap">As a teenager</div>
-        </div>
-        <div class="abox">
-          <div class="ph" data-title="Age 21, 2019">
-            <span class="tag">Young Adult</span>
-            <img src="art/young-adult-2019.jpg" alt="Charles's drawing as a young adult, 2019" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          </div>
-          <div class="cap">As a young adult</div>
-        </div>
-        <div class="abox">
-          <div class="ph" data-title="Age 28, 2026">
-            <span class="tag">Now</span>
-            <img src="art/now-2026.jpeg" alt="Charles's drawing now, 2026" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          </div>
-          <div class="cap">Now</div>
-        </div>
       </div>
     </div>
 
@@ -536,15 +499,47 @@
       </div>
     </div>
 
-    <div class="creds">
-      <div class="ct">Background</div>
-      <ul>
-        <li><b>Visual Artist</b><span>20+ years of drawing experience</span></li>
-        <li><b>BA, Visual Communication Design</b><span>Cal Poly Pomona</span></li>
-        <li><b>Published Author</b><span>Essenc&iacute;sm: An Artist's Manifesto of the Soul</span></li>
-        <li><b>ABA Behavior Technician</b><span>Works directly with kids daily</span></li>
-        <li><b>Former Scrum Master</b><span>Project coordination at ASML</span></li>
-      </ul>
+    <div class="bottom-row">
+      <div class="creds">
+        <div class="ct">Background</div>
+        <ul>
+          <li><b>Visual Artist</b><span>20+ years of drawing experience</span></li>
+          <li><b>BA, Visual Communication Design</b><span>Cal Poly Pomona</span></li>
+          <li><b>Published Author</b><span>Essenc&iacute;sm: An Artist's Manifesto of the Soul</span></li>
+          <li><b>ABA Behavior Technician</b><span>Works directly with kids daily</span></li>
+          <li><b>Former Scrum Master</b><span>Project coordination at ASML</span></li>
+        </ul>
+      </div>
+      <div class="artlife">
+        <div class="artlife-head">Art Through The Years</div>
+        <div class="artlife-grid">
+          <div class="abox" hidden>
+            <div class="ph"><span class="tag">Kid</span><span class="soon">Coming soon</span></div>
+            <div class="cap">As a kid</div>
+          </div>
+          <div class="abox">
+            <div class="ph" data-title="Age 17, 2015">
+              <span class="tag">Teenage</span>
+              <img src="art/teen-2015.png" alt="Charles's drawing as a teenager, 2015" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="cap">As a teenager</div>
+          </div>
+          <div class="abox">
+            <div class="ph" data-title="Age 21, 2019">
+              <span class="tag">Young Adult</span>
+              <img src="art/young-adult-2019.jpg" alt="Charles's drawing as a young adult, 2019" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="cap">As a young adult</div>
+          </div>
+          <div class="abox">
+            <div class="ph" data-title="Age 28, 2026">
+              <span class="tag">Now</span>
+              <img src="art/now-2026.jpeg" alt="Charles's drawing now, 2026" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="cap">Now</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -631,6 +626,5 @@
   <div class="fline">Raising Curators. Not Consumers.</div>
 </footer>
 
-<script src="theme-toggle.js"></script>
 </body>
 </html>
