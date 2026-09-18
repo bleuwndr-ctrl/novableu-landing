@@ -50,6 +50,19 @@
     88%{opacity:.35;transform:rotate(var(--a)) translateY(14px) scaleY(1);}
     94%,100%{opacity:0;transform:rotate(var(--a)) translateY(18px) scaleY(.5);}
   }
+  /* Some spark bursts resolve into an eye at their peak, then fade back into
+     just rays — same 9s cycle/timing as .spark i above, linework only */
+  .spark-eye{
+    position:absolute;left:-32px;top:-16px;width:64px;height:32px;
+    color:var(--line);opacity:0;transform:scale(.35);transform-origin:50% 50%;
+    animation:eye-reveal 9s ease-in-out infinite;animation-delay:var(--d);
+  }
+  @keyframes eye-reveal{
+    0%,72%{opacity:0;transform:scale(.3);}
+    80%{opacity:.6;transform:scale(1);}
+    88%{opacity:.4;transform:scale(1.06);}
+    96%,100%{opacity:0;transform:scale(.4);}
+  }
 
   main{position:relative;z-index:1;}
 
@@ -370,10 +383,12 @@
   <div class="spark" style="left:16%;top:46%;">
     <i style="--a:12deg;--d:0s"></i><i style="--a:72deg;--d:0s"></i><i style="--a:132deg;--d:0s"></i>
     <i style="--a:192deg;--d:0s"></i><i style="--a:252deg;--d:0s"></i><i style="--a:312deg;--d:0s"></i>
+    <svg class="spark-eye" viewBox="0 0 64 40" style="--d:0s"><path d="M3 20c8-13 19-15 29-15s21 2 29 15c-8 13-19 15-29 15S11 33 3 20Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="32" cy="20" r="2.2" fill="currentColor"/></svg>
   </div>
   <div class="spark" style="left:88%;top:40%;">
     <i style="--a:40deg;--d:1.8s"></i><i style="--a:100deg;--d:1.8s"></i><i style="--a:160deg;--d:1.8s"></i>
     <i style="--a:220deg;--d:1.8s"></i><i style="--a:280deg;--d:1.8s"></i><i style="--a:340deg;--d:1.8s"></i>
+    <svg class="spark-eye" viewBox="0 0 64 40" style="--d:1.8s"><path d="M4 26c9-12 19-14 28-14s19 2 28 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16 13l-3-6M32 10V3M48 13l3-6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
   </div>
   <div class="spark" style="left:70%;top:66%;">
     <i style="--a:25deg;--d:3.6s"></i><i style="--a:85deg;--d:3.6s"></i><i style="--a:145deg;--d:3.6s"></i>
@@ -408,6 +423,7 @@
   <div class="spark" style="left:8%;top:86%;">
     <i style="--a:18deg;--d:1.2s"></i><i style="--a:78deg;--d:1.2s"></i><i style="--a:138deg;--d:1.2s"></i>
     <i style="--a:198deg;--d:1.2s"></i><i style="--a:258deg;--d:1.2s"></i><i style="--a:318deg;--d:1.2s"></i>
+    <svg class="spark-eye" viewBox="0 0 64 40" style="--d:1.2s"><path d="M3 20c8-13 19-15 29-15s21 2 29 15c-8 13-19 15-29 15S11 33 3 20Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="32" cy="20" r="2.2" fill="currentColor"/></svg>
   </div>
   <div class="spark" style="left:60%;top:52%;">
     <i style="--a:10deg;--d:3.0s;--c:#FF6B6B"></i><i style="--a:61deg;--d:3.0s;--c:#FFA94D"></i>
@@ -418,6 +434,7 @@
   <div class="spark" style="left:92%;top:74%;">
     <i style="--a:30deg;--d:5.1s"></i><i style="--a:90deg;--d:5.1s"></i><i style="--a:150deg;--d:5.1s"></i>
     <i style="--a:210deg;--d:5.1s"></i><i style="--a:270deg;--d:5.1s"></i><i style="--a:330deg;--d:5.1s"></i>
+    <svg class="spark-eye" viewBox="0 0 64 40" style="--d:5.1s"><path d="M4 26c9-12 19-14 28-14s19 2 28 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16 13l-3-6M32 10V3M48 13l3-6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
   </div>
   <div class="spark" style="left:45%;top:82%;">
     <i style="--a:42deg;--d:6.3s;--c:#FF6B6B"></i><i style="--a:93deg;--d:6.3s;--c:#FFA94D"></i>
@@ -428,6 +445,22 @@
   <div class="spark" style="left:70%;top:34%;">
     <i style="--a:8deg;--d:8.1s"></i><i style="--a:68deg;--d:8.1s"></i><i style="--a:128deg;--d:8.1s"></i>
     <i style="--a:188deg;--d:8.1s"></i><i style="--a:248deg;--d:8.1s"></i><i style="--a:308deg;--d:8.1s"></i>
+    <svg class="spark-eye" viewBox="0 0 64 40" style="--d:8.1s"><path d="M3 20c8-13 19-15 29-15s21 2 29 15c-8 13-19 15-29 15S11 33 3 20Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="32" cy="20" r="2.2" fill="currentColor"/></svg>
+  </div>
+  <div class="spark" style="left:30%;top:20%;">
+    <i style="--a:15deg;--d:2.2s"></i><i style="--a:75deg;--d:2.2s"></i><i style="--a:135deg;--d:2.2s"></i>
+    <i style="--a:195deg;--d:2.2s"></i><i style="--a:255deg;--d:2.2s"></i><i style="--a:315deg;--d:2.2s"></i>
+  </div>
+  <div class="spark" style="left:80%;top:85%;">
+    <i style="--a:22deg;--d:6.6s;--c:#FF6B6B"></i><i style="--a:73deg;--d:6.6s;--c:#FFA94D"></i>
+    <i style="--a:125deg;--d:6.6s;--c:#FFE066"></i><i style="--a:176deg;--d:6.6s;--c:#69DB7C"></i>
+    <i style="--a:227deg;--d:6.6s;--c:#4DABF7"></i><i style="--a:279deg;--d:6.6s;--c:#748FFC"></i>
+    <i style="--a:330deg;--d:6.6s;--c:#DA77F2"></i>
+  </div>
+  <div class="spark" style="left:55%;top:15%;">
+    <i style="--a:18deg;--d:4.0s"></i><i style="--a:78deg;--d:4.0s"></i><i style="--a:138deg;--d:4.0s"></i>
+    <i style="--a:198deg;--d:4.0s"></i><i style="--a:258deg;--d:4.0s"></i><i style="--a:318deg;--d:4.0s"></i>
+    <svg class="spark-eye" viewBox="0 0 64 40" style="--d:4.0s"><path d="M4 26c9-12 19-14 28-14s19 2 28 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M16 13l-3-6M32 10V3M48 13l3-6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
   </div>
 </div>
 
