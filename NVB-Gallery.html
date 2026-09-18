@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<script>(function(){try{if(localStorage.getItem('nvbTheme')==='cream')document.documentElement.setAttribute('data-theme','cream');}catch(e){}})();</script>
 <title>The Gallery — NOVABLEU KIDS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&family=Roboto+Mono:ital,wght@1,500;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet">
@@ -14,6 +15,14 @@
     --grey:#4A4B53;
     --line:#0D0D11;
     --hairline:rgba(0,0,0,0.22);
+  }
+  /* Cream sketchbook theme — toggled site-wide, saved in localStorage (theme-toggle.js) */
+  :root[data-theme="cream"]{
+    --bg:#E8D9B8;
+    --ink:#2A2118;
+    --grey:#7A6F5C;
+    --line:#2A2118;
+    --hairline:rgba(42,33,24,0.28);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -68,6 +77,12 @@
   .topnav .home{display:inline-flex;align-items:center;}
   .topnav .home svg{width:31px;height:31px;}
   .topnav a.active{border-bottom:2px solid var(--ink);padding-bottom:4px;}
+  .theme-toggle{
+    font-family:'Roboto Mono',monospace;font-weight:700;font-size:12.5px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--ink);background:none;border:1px solid var(--line);
+    padding:7px 14px;cursor:pointer;white-space:nowrap;
+  }
+  .theme-toggle:hover{background:var(--ink);color:var(--bg);}
   section{scroll-margin-top:84px;}
   .hero-name{margin-top:10px;}
   .hero-name h1{
@@ -280,7 +295,7 @@
 
   @media (max-width:860px){
     .ml-side{display:none;}
-    .microline{justify-content:center;}
+    .microline{justify-content:center;flex-wrap:wrap;row-gap:10px;}
     .topnav{gap:24px;}
     .topnav a{font-size:13.5px;letter-spacing:2px;}
     .aboutme-grid{grid-template-columns:1fr;gap:40px;}
@@ -376,6 +391,7 @@
       <a href="NVB-Ethos.html">Ethos</a>
       <a href="NVB-Join.html">Join</a>
     </nav>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false">Cream mode</button>
     <span class="ml-side right cs">Coming Soon · 2026</span>
   </header>
 
@@ -524,5 +540,6 @@
   <div class="fline">Raising Curators. Not Consumers.</div>
 </footer>
 
+<script src="theme-toggle.js"></script>
 </body>
 </html>
