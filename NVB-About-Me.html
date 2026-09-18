@@ -183,7 +183,7 @@
   /* about me — photos, then bio, then background, stacked and centered on the page */
   .aboutme-centered{max-width:640px;margin:0 auto;}
   .aboutme-centered .portrait{text-align:center;}
-  .aboutme-centered .aboutme-copy{margin-top:74px;text-align:left;}
+  .aboutme-centered .aboutme-copy{margin-top:74px;text-align:center;}
   .aboutme-centered .aboutme-copy h3{text-align:center;}
   .aboutme-centered .aboutme-copy .sig{text-align:center;}
   .aboutme-centered .creds{margin-top:74px;}
@@ -223,7 +223,7 @@
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
     font-size:clamp(22px,3vw,32px);letter-spacing:-0.01em;line-height:1.25;margin-bottom:26px;
   }
-  .aboutme-copy p{color:#272830;font-size:17px;line-height:1.85;margin-bottom:20px;max-width:62ch;}
+  .aboutme-copy p{color:#272830;font-size:17px;line-height:1.85;margin:0 auto 20px;max-width:62ch;}
   .aboutme-copy .sig{font-style:italic;color:var(--grey);font-size:15px;}
 
   /* art through the years — 4 placeholder boxes */
@@ -231,8 +231,9 @@
   .artlife-head{
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
     font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:28px;
+    text-align:center;
   }
-  .artlife-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .artlife-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,275px));justify-content:center;gap:20px;}
   .abox .ph{
     border:1.5px solid var(--line);background:#000;aspect-ratio:3/4;position:relative;
     display:flex;align-items:center;justify-content:center;
@@ -419,9 +420,8 @@
     <span class="ml-side right cs">Coming Soon · 2026</span>
   </header>
 
-  <!-- 01 ABOUT ME -->
+  <!-- ABOUT ME -->
   <section id="aboutme">
-    <div class="sec-label"><span class="num">01</span><span>/ about me — the founder</span><span class="rule"></span></div>
     <div class="aboutme-centered">
       <div class="portrait">
         <div class="duo">
