@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32.1" height="39.6" viewBox="-1 -1 17 21" shape-rendering="crispEdges">
+  <defs>
+    <polygon id="h" points="3,0 6,0 6,6 9,6 9,8 12,8 12,9 15,9 15,19 3,19 3,14 0,14 0,10 3,10"/>
+  </defs>
+  <use href="#h" xlink:href="#h" transform="translate(1,1)" fill="#2A2118" opacity="0.25"/>
+  <use href="#h" xlink:href="#h" fill="#E8D9B8" stroke="#2A2118" stroke-width="1" stroke-linejoin="miter"/>
+</svg>

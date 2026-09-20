@@ -21,7 +21,14 @@
     font-family:'Xanh Mono',Courier,monospace;
     background:var(--bg);color:var(--ink);overflow-x:hidden;
     font-size:18px;line-height:1.7;
+    cursor:url("cursor-arrow.svg") 0 0, auto;
     -webkit-text-stroke:0.35px currentColor;
+  }
+  a, button, select, input[type="checkbox"], input[type="submit"]{
+    cursor:url("cursor-hand.svg") 10 2, pointer;
+  }
+  a:active, button:active, select:active, input[type="checkbox"]:active, input[type="submit"]:active{
+    cursor:url("cursor-hand-active-cream.svg") 10 2, pointer;
   }
   .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
   a{text-decoration:none;color:inherit;}
@@ -56,11 +63,48 @@
     96%,100%{opacity:0;transform:scale(.4);}
   }
 
+  /* ── PAPER TEXTURE — felt more than seen, same cream/ink palette ──
+     Three fixed, pointer-events:none layers, all dialed down after the
+     hero wordmark complained the wrinkle was competing for attention.
+     soft-light replaces multiply/screen — a much gentler blend than either
+     at the same source alpha — and each layer carries its own low element
+     opacity (8–15% range) as an explicit master fader on top of that. The
+     gradients themselves are wide, single-peak bands now (no more sharp
+     double-stop edges), so each crossing reads as soft undulation rather
+     than a distinct fold line. .paper-grain is fine SVG feTurbulence fiber
+     noise, desaturated. None of this can shift hue — soft-light and
+     multiply both blend toward neutral, never toward a new color. */
+  .paper-fold{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
+    background-image:
+      linear-gradient(124deg, transparent 8%, rgba(42,33,24,.62) 18%, transparent 28%),
+      linear-gradient(70deg, transparent 32%, rgba(42,33,24,.55) 42%, transparent 52%),
+      linear-gradient(160deg, transparent 50%, rgba(42,33,24,.5) 60%, transparent 70%),
+      linear-gradient(35deg, transparent 66%, rgba(42,33,24,.58) 76%, transparent 86%),
+      linear-gradient(100deg, transparent 0%, rgba(42,33,24,.45) 10%, transparent 20%),
+      linear-gradient(150deg, transparent 39%, rgba(42,33,24,.7) 50%, transparent 61%);
+  }
+  .paper-fold-light{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
+    background-image:
+      linear-gradient(124deg, transparent 6%, rgba(255,255,255,.7) 16%, transparent 24%),
+      linear-gradient(70deg, transparent 30%, rgba(255,255,255,.62) 40%, transparent 48%),
+      linear-gradient(160deg, transparent 48%, rgba(255,255,255,.58) 58%, transparent 66%),
+      linear-gradient(35deg, transparent 64%, rgba(255,255,255,.66) 74%, transparent 82%),
+      linear-gradient(100deg, transparent 0%, rgba(255,255,255,.5) 8%, transparent 16%),
+      linear-gradient(150deg, transparent 37%, rgba(255,255,255,.78) 48%, transparent 59%);
+  }
+  .paper-grain{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.08;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:220px 220px;
+  }
+
   main{position:relative;z-index:1;}
 
   /* ── SCREEN 1 / HERO ─────────────────────────── */
   .screen1{
-    min-height:calc(100vh - 50px);display:flex;flex-direction:column;justify-content:space-between;
+    min-height:calc(100vh - 50px);min-height:calc(100dvh - 50px);display:flex;flex-direction:column;justify-content:space-between;
     padding:24px 34px 28px;position:relative;
   }
   .microline{
@@ -247,7 +291,8 @@
   .gal-cap{margin-top:22px;font-size:13px;color:var(--grey);display:flex;justify-content:space-between;}
 
   /* lightbox */
-  .gal-grid .g{cursor:pointer;transition:border-color .15s;}
+  .gal-grid .g{cursor:url("cursor-hand.svg") 10 2, pointer;transition:border-color .15s;}
+  .gal-grid .g:active{cursor:url("cursor-hand-active-cream.svg") 10 2, pointer;}
   .gal-grid .g:hover{border-color:var(--ink);}
   .lb{
     position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.95);
@@ -265,12 +310,12 @@
   }
   .lb-cap{margin-top:18px;font-size:13.5px;letter-spacing:.5px;color:#D8D7CF;text-align:center;}
   .lb-x{
-    position:fixed;top:16px;right:24px;z-index:101;background:none;border:none;cursor:pointer;
+    position:fixed;top:16px;right:24px;z-index:101;background:none;border:none;cursor:url("cursor-hand.svg") 10 2, pointer;
     color:#fff;font-family:'Courier New',monospace;font-size:38px;line-height:1;
   }
   .lb-x:hover,.lb-nav:hover{opacity:.6;}
   .lb-nav{
-    position:fixed;top:50%;transform:translateY(-50%);z-index:101;cursor:pointer;
+    position:fixed;top:50%;transform:translateY(-50%);z-index:101;cursor:url("cursor-hand.svg") 10 2, pointer;
     background:none;border:1px solid var(--hairline);border-radius:50%;width:54px;height:54px;
     color:#fff;font-family:'Courier New',monospace;font-size:24px;
   }
@@ -292,13 +337,18 @@
   footer .fline + .fline{margin-top:6px;}
 
   @media (max-width:860px){
+    .screen1{padding:20px 20px 24px;}
+    .microline{padding:16px 20px;}
+    section{padding:64px 20px;}
+    footer{padding:56px 20px 32px;}
     .ml-side{display:none;}
     .microline{justify-content:center;}
-    .topnav{gap:24px;}
+    .topnav{gap:20px;flex-wrap:wrap;justify-content:center;}
     .topnav a{font-size:13.5px;letter-spacing:2px;}
     .aboutme-grid{grid-template-columns:1fr;gap:40px;}
     .creed{grid-template-columns:1fr;}
     .creed .c{border-right:none;border-bottom:1px solid var(--line);}
+    .creed .c:last-child{border-bottom:none;}
     .gal-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
     .hero-name h1{white-space:normal;font-size:clamp(44px,13vw,90px);}
     .slogan{white-space:normal;font-size:clamp(20px,6vw,34px);}
@@ -307,6 +357,8 @@
     .mb2,.mb3{margin-top:0;}
     .phase-grid{grid-template-columns:1fr 1fr;}
     .phase{border-bottom:1px solid var(--line);min-height:0;}
+    .phase:nth-child(2n){border-right:none;}
+    .phase:nth-child(3),.phase:nth-child(4){border-bottom:none;}
     .about h3,.about .aside{text-align:left;}
   }
 </style>
@@ -397,6 +449,9 @@
     <svg class="spark-eye" viewBox="0 0 64 40" style="--d:4.0s"><path d="M4 26c9-12 19-14 28-14s19 2 28 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M16 13l-3-6M32 10V3M48 13l3-6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
   </div>
 </div>
+<div class="paper-fold"></div>
+<div class="paper-fold-light"></div>
+<div class="paper-grain"></div>
 
 <main>
 

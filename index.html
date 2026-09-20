@@ -20,7 +20,14 @@
     font-family:'Xanh Mono',Courier,monospace;
     background:var(--bg);color:var(--ink);overflow-x:hidden;
     font-size:18px;line-height:1.7;
+    cursor:url("cursor-arrow.svg") 0 0, auto;
     -webkit-text-stroke:0.35px currentColor;
+  }
+  a, button, select, input[type="checkbox"], input[type="submit"]{
+    cursor:url("cursor-hand.svg") 10 2, pointer;
+  }
+  a:active, button:active, select:active, input[type="checkbox"]:active, input[type="submit"]:active{
+    cursor:url("cursor-hand-active-cream.svg") 10 2, pointer;
   }
   .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
   a{text-decoration:none;color:inherit;}
@@ -55,11 +62,48 @@
     96%,100%{opacity:0;transform:scale(.4);}
   }
 
+  /* ── PAPER TEXTURE — felt more than seen, same cream/ink palette ──
+     Three fixed, pointer-events:none layers, all dialed down after the
+     hero wordmark complained the wrinkle was competing for attention.
+     soft-light replaces multiply/screen — a much gentler blend than either
+     at the same source alpha — and each layer carries its own low element
+     opacity (8–15% range) as an explicit master fader on top of that. The
+     gradients themselves are wide, single-peak bands now (no more sharp
+     double-stop edges), so each crossing reads as soft undulation rather
+     than a distinct fold line. .paper-grain is fine SVG feTurbulence fiber
+     noise, desaturated. None of this can shift hue — soft-light and
+     multiply both blend toward neutral, never toward a new color. */
+  .paper-fold{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
+    background-image:
+      linear-gradient(124deg, transparent 8%, rgba(42,33,24,.62) 18%, transparent 28%),
+      linear-gradient(70deg, transparent 32%, rgba(42,33,24,.55) 42%, transparent 52%),
+      linear-gradient(160deg, transparent 50%, rgba(42,33,24,.5) 60%, transparent 70%),
+      linear-gradient(35deg, transparent 66%, rgba(42,33,24,.58) 76%, transparent 86%),
+      linear-gradient(100deg, transparent 0%, rgba(42,33,24,.45) 10%, transparent 20%),
+      linear-gradient(150deg, transparent 39%, rgba(42,33,24,.7) 50%, transparent 61%);
+  }
+  .paper-fold-light{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
+    background-image:
+      linear-gradient(124deg, transparent 6%, rgba(255,255,255,.7) 16%, transparent 24%),
+      linear-gradient(70deg, transparent 30%, rgba(255,255,255,.62) 40%, transparent 48%),
+      linear-gradient(160deg, transparent 48%, rgba(255,255,255,.58) 58%, transparent 66%),
+      linear-gradient(35deg, transparent 64%, rgba(255,255,255,.66) 74%, transparent 82%),
+      linear-gradient(100deg, transparent 0%, rgba(255,255,255,.5) 8%, transparent 16%),
+      linear-gradient(150deg, transparent 37%, rgba(255,255,255,.78) 48%, transparent 59%);
+  }
+  .paper-grain{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.08;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:220px 220px;
+  }
+
   main{position:relative;z-index:1;}
 
   /* ── SCREEN 1 / HERO ─────────────────────────── */
   .screen1{
-    min-height:calc(100vh - 50px);display:flex;flex-direction:column;justify-content:space-between;
+    min-height:calc(100vh - 50px);min-height:calc(100dvh - 50px);display:flex;flex-direction:column;justify-content:space-between;
     padding:24px 34px 28px;position:relative;
   }
   .microline{
@@ -87,8 +131,9 @@
     font-size:clamp(40px,11.6vw,172px);line-height:.95;letter-spacing:-0.055em;
     white-space:nowrap;
   }
-  .name-svg{width:100%;height:auto;display:block;margin-top:8px;}
-  .name-svg text{font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;letter-spacing:0;}
+  .name-svg{width:100%;height:auto;display:block;margin-top:8px;transform:scale(1.07);transform-origin:left center;}
+  .name-svg-mobile{width:100%;height:auto;display:none;margin-top:8px;}
+  .name-svg text, .name-svg-mobile text{font-family:'Courier Prime','Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;letter-spacing:0;}
   .sheen{animation:sheen-sweep 4.6s linear infinite;}
   @keyframes sheen-sweep{
     from{transform:translateX(0) skewX(-18deg);}
@@ -146,7 +191,7 @@
   /* statements 01–03 — one idea fills the screen, Apple product-page pacing,
      same fonts/hairlines/boxed-word device as the rest of the page, just at scale */
   #what-we-do, #the-problem, #how-it-works{
-    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;
   }
   #what-we-do .sec-label, #the-problem .sec-label, #how-it-works .sec-label{
     font-size:17px;letter-spacing:3px;margin-bottom:80px;
@@ -278,21 +323,30 @@
   footer .fline + .fline{margin-top:6px;}
 
   @media (max-width:860px){
+    .screen1{padding:20px 20px 24px;}
+    .microline{padding:16px 20px;}
+    section{padding:64px 20px;}
+    footer{padding:56px 20px 32px;}
     .ml-side{display:none;}
     .microline{justify-content:center;}
-    .topnav{gap:24px;}
+    .topnav{gap:20px;flex-wrap:wrap;justify-content:center;}
     .topnav a{font-size:13.5px;letter-spacing:2px;}
     .aboutme-grid{grid-template-columns:1fr;gap:40px;}
     .creed{grid-template-columns:1fr;}
     .creed .c{border-right:none;border-bottom:1px solid var(--line);}
+    .creed .c:last-child{border-bottom:none;}
     .gal-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
     .hero-name h1{white-space:normal;font-size:clamp(44px,13vw,90px);}
+    .name-svg{display:none;}
+    .name-svg-mobile{display:block;}
     .slogan{white-space:normal;font-size:clamp(20px,6vw,34px);}
     .v-jp,.v-en{display:none;}
     .mila-grid{grid-template-columns:1fr;gap:44px;}
     .mb2,.mb3{margin-top:0;}
     .phase-grid{grid-template-columns:1fr 1fr;}
     .phase{border-bottom:1px solid var(--line);min-height:0;}
+    .phase:nth-child(2n){border-right:none;}
+    .phase:nth-child(3),.phase:nth-child(4){border-bottom:none;}
     .about h3,.about .aside{text-align:left;}
   }
 </style>
@@ -383,6 +437,9 @@
     <svg class="spark-eye" viewBox="0 0 64 40" style="--d:4.0s"><path d="M4 26c9-12 19-14 28-14s19 2 28 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M16 13l-3-6M32 10V3M48 13l3-6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
   </div>
 </div>
+<div class="paper-fold"></div>
+<div class="paper-fold-light"></div>
+<div class="paper-grain"></div>
 
 <main>
 
@@ -423,10 +480,30 @@
               <text font-size="136" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
             </clipPath>
           </defs>
-          <text font-size="136" fill="url(#nvbgrad)" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
+          <text font-size="136" fill="url(#nvbgrad)" stroke="#000000" stroke-width="2" stroke-linejoin="round" x="23.8 104.6 185.6 266.8 348.2 429.7 511.3 592.9 674.5 756.0 837.4 918.7 999.8" y="256.2 244.6 234.8 226.8 220.8 216.6 214.3 213.8 215.3 218.7 223.9 231.1 240.1" rotate="-8.2 -6.9 -5.6 -4.3 -3.0 -1.6 -0.3 1.0 2.4 3.7 5.0 6.3 7.6">NOVABLEU KIDS</text>
           <g clip-path="url(#nameclip)">
             <rect class="sheen" x="-480" y="88" width="440" height="200" fill="url(#shine)"/>
           </g>
+        </svg>
+        <svg class="name-svg-mobile" viewBox="0 0 700 370" role="img" aria-label="NOVABLEU KIDS">
+          <defs>
+            <linearGradient id="nvbgrad-m1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#000000"/>
+              <stop offset=".266" stop-color="#000000"/>
+              <stop offset=".625" stop-color="#0038E8"/>
+              <stop offset="1" stop-color="#0038E8"/>
+            </linearGradient>
+            <linearGradient id="nvbgrad-m2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#FF6B6B"/>
+              <stop offset=".19" stop-color="#FFA94D"/>
+              <stop offset=".379" stop-color="#FFE066"/>
+              <stop offset=".569" stop-color="#69DB7C"/>
+              <stop offset=".759" stop-color="#4DABF7"/>
+              <stop offset="1" stop-color="#DA77F2"/>
+            </linearGradient>
+          </defs>
+          <text font-size="136" fill="url(#nvbgrad-m1)" stroke="#000000" stroke-width="2" stroke-linejoin="round" x="10 91 172 253 334 415 496 577" y="150 141.2 135.3 132.4 132.4 135.3 141.2 150" rotate="-7 -5 -3 -1 1 3 5 7">NOVABLEU</text>
+          <text font-size="136" fill="url(#nvbgrad-m2)" stroke="#000000" stroke-width="2" stroke-linejoin="round" x="10 91 172 253" y="340 329.3 329.3 340" rotate="-6 -2 2 6">KIDS</text>
         </svg>
         <div class="meaning">NovaBleu Kids <b>= Sparkled Imaginative Kids</b></div>
       </div>

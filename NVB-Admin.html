@@ -15,9 +15,11 @@
   body{
     font-family:'Xanh Mono',Courier,monospace;background:var(--bg);color:var(--ink);
     font-size:15px;line-height:1.6;min-height:100vh;
+    cursor:url("cursor-arrow.svg") 0 0, auto;
   }
   .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
-  a{color:inherit;}
+  a{color:inherit;cursor:url("cursor-hand.svg") 10 2, pointer;}
+  a:active{cursor:url("cursor-hand-active.svg") 10 2, pointer;}
   .wrap{max-width:1100px;margin:0 auto;padding:50px 30px 80px;}
   .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:50px;border-bottom:1px solid var(--line);padding-bottom:20px;}
   .top h1{font-size:20px;text-transform:uppercase;letter-spacing:1px;}
@@ -34,13 +36,14 @@
   .gate button{
     margin-top:24px;width:100%;background:var(--ink);color:var(--bg);border:1.5px solid var(--ink);
     padding:14px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:14px;
-    letter-spacing:1px;cursor:pointer;
+    letter-spacing:1px;cursor:url("cursor-hand.svg") 10 2, pointer;
   }
   .gate button:hover{background:var(--bg);color:var(--ink);}
+  .gate button:active{cursor:url("cursor-hand-active.svg") 10 2, pointer;}
   .gate .err{color:#FF6B6B;margin-top:16px;font-size:13px;display:none;}
   .gate .err.show{display:block;}
 
-  .stats{display:flex;gap:40px;margin-bottom:36px;}
+  .stats{display:flex;gap:40px;margin-bottom:36px;flex-wrap:wrap;}
   .stats .s{border:1px solid var(--line);padding:16px 22px;}
   .stats .s .n{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:28px;}
   .stats .s .l{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-top:4px;}
@@ -59,12 +62,52 @@
   .refresh{
     margin-bottom:20px;background:transparent;color:var(--ink);border:1px solid var(--line);
     padding:9px 18px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:12px;
-    letter-spacing:1px;cursor:pointer;
+    letter-spacing:1px;cursor:url("cursor-hand.svg") 10 2, pointer;
   }
+  .refresh:active{cursor:url("cursor-hand-active.svg") 10 2, pointer;}
   .refresh:hover{background:var(--ink);color:var(--bg);}
+
+  @media (max-width:600px){
+    .wrap{padding:34px 18px 60px;}
+    .top{flex-wrap:wrap;gap:10px;}
+    .stats{gap:20px;}
+  }
+
+  /* ── PAPER TEXTURE — felt more than seen, same black/white palette ──
+     Same softened technique as the public pages: soft-light blend, wide
+     single-peak gradient bands, low element opacity. The highlight layer
+     is still a no-op here since the page is already pure white. */
+  .paper-fold{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
+    background-image:
+      linear-gradient(124deg, transparent 8%, rgba(0,0,0,.55) 18%, transparent 28%),
+      linear-gradient(70deg, transparent 32%, rgba(0,0,0,.48) 42%, transparent 52%),
+      linear-gradient(160deg, transparent 50%, rgba(0,0,0,.44) 60%, transparent 70%),
+      linear-gradient(35deg, transparent 66%, rgba(0,0,0,.52) 76%, transparent 86%),
+      linear-gradient(100deg, transparent 0%, rgba(0,0,0,.38) 10%, transparent 20%),
+      linear-gradient(150deg, transparent 39%, rgba(0,0,0,.62) 50%, transparent 61%);
+  }
+  .paper-fold-light{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
+    background-image:
+      linear-gradient(124deg, transparent 6%, rgba(255,255,255,.7) 16%, transparent 24%),
+      linear-gradient(70deg, transparent 30%, rgba(255,255,255,.62) 40%, transparent 48%),
+      linear-gradient(160deg, transparent 48%, rgba(255,255,255,.58) 58%, transparent 66%),
+      linear-gradient(35deg, transparent 64%, rgba(255,255,255,.66) 74%, transparent 82%),
+      linear-gradient(100deg, transparent 0%, rgba(255,255,255,.5) 8%, transparent 16%),
+      linear-gradient(150deg, transparent 37%, rgba(255,255,255,.78) 48%, transparent 59%);
+  }
+  .paper-grain{
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.08;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:220px 220px;
+  }
 </style>
 </head>
 <body>
+<div class="paper-fold"></div>
+<div class="paper-fold-light"></div>
+<div class="paper-grain"></div>
 
 <div class="wrap">
   <div class="top">
