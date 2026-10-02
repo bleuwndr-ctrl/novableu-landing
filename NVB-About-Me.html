@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@1,700&family=Roboto+Mono:ital,wght@0,400;0,700;1,500;1,700&family=Xanh+Mono:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#000000;
-    --ink:#ffffff;
-    --grey:#9C9284;
-    --line:#ffffff;
-    --hairline:rgba(255,255,255,0.28);
+    --bg:#E8D9B8;
+    --ink:#000000;
+    --grey:#4A4A4A;
+    --line:#000000;
+    --hairline:rgba(0,0,0,0.28);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -27,7 +27,7 @@
     cursor:url("cursor-hand.svg") 10 2, pointer;
   }
   a:active, button:active, select:active, input[type="checkbox"]:active, input[type="submit"]:active{
-    cursor:url("cursor-hand-active-black.svg") 10 2, pointer;
+    cursor:url("cursor-hand-active-cream.svg") 10 2, pointer;
   }
   .rb{font-family:'Roboto Mono',Courier,monospace;font-style:italic;font-weight:700;}
   a{text-decoration:none;color:inherit;}
@@ -84,7 +84,7 @@
       linear-gradient(150deg, transparent 39%, rgba(42,33,24,.7) 50%, transparent 61%);
   }
   .paper-fold-light{
-    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:screen;opacity:.22;
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:soft-light;
     background-image:
       linear-gradient(124deg, transparent 6%, rgba(255,255,255,.7) 16%, transparent 24%),
       linear-gradient(70deg, transparent 30%, rgba(255,255,255,.62) 40%, transparent 48%),
@@ -94,7 +94,7 @@
       linear-gradient(150deg, transparent 37%, rgba(255,255,255,.78) 48%, transparent 59%);
   }
   .paper-grain{
-    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:screen;opacity:.08;
+    position:fixed;inset:0;z-index:5;pointer-events:none;mix-blend-mode:multiply;opacity:.08;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:220px 220px;
   }
@@ -222,7 +222,7 @@
   .phase .picon svg{width:52px;height:52px;display:block;}
   .phase .min{font-size:14px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin:26px 0 8px;}
   .phase h4{font-size:21px;text-transform:uppercase;letter-spacing:-0.01em;margin-bottom:10px;font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;line-height:1.25;}
-  .phase p{font-size:17px;color:#D9D4C8;line-height:1.7;}
+  .phase p{font-size:17px;color:#272830;line-height:1.7;}
 
   /* join */
   .join{text-align:center;}
@@ -263,7 +263,7 @@
   .creds::before{
     content:"";position:absolute;top:-1.5px;bottom:-1.5px;left:-1.5px;width:34px;
     border:1.5px solid var(--line);border-right:1px dashed var(--hairline);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='34' viewBox='0 0 28 34'%3E%3Ccircle cx='14' cy='17' r='7' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='34' viewBox='0 0 28 34'%3E%3Ccircle cx='14' cy='17' r='7' fill='none' stroke='%232A2118' stroke-width='2'/%3E%3C/svg%3E");
     background-repeat:repeat-y;background-position:center 15px;background-size:28px 34px;
   }
   /* Bottom row: resume on the left, Art Through The Years on the right,
@@ -289,7 +289,7 @@
   }
   .creds li span{
     display:block;font-family:'Roboto Mono',monospace;font-weight:400;font-size:14px;
-    line-height:1.6;color:#D9D4C8;letter-spacing:.2px;
+    line-height:1.6;color:#272830;letter-spacing:.2px;
   }
   .aboutme-copy .lead-quote{
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
@@ -300,8 +300,27 @@
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
     font-size:clamp(22px,3vw,32px);letter-spacing:-0.01em;line-height:1.25;margin-bottom:26px;
   }
-  .aboutme-copy p{color:#D9D4C8;font-size:17px;line-height:1.85;margin:0 auto 20px;max-width:62ch;}
+  .aboutme-copy p{color:#272830;font-size:17px;line-height:1.85;margin:0 auto 20px;max-width:62ch;}
   .aboutme-copy .sig{font-style:italic;color:var(--grey);font-size:15px;}
+
+  /* Corner ornaments sitting AT the padding edge of the "why I created this"
+     letter, never overlapping the text itself — a rectangular block of text
+     needs corner-anchored framing, not a round frame centered behind it (an
+     oval's curve pulls away from a rectangle's corners no matter how it's
+     sized). One public-domain corner engraving (freesvg.org/OpenClipart,
+     CC0), mirrored via transform for the other 3 corners. Shown in its
+     natural black-on-transparent against the page's cream theme. Decorative
+     only: aria-hidden, no pointer-events. */
+  .aboutme-copy{position:relative;padding:64px 26px;}
+  .corner-orn{position:absolute;width:100px;height:100px;opacity:.75;pointer-events:none;}
+  .corner-orn.tl{top:0;left:0;}
+  .corner-orn.tr{top:0;right:0;transform:scaleX(-1);}
+  .corner-orn.bl{bottom:0;left:0;transform:scaleY(-1);}
+  .corner-orn.br{bottom:0;right:0;transform:scale(-1,-1);}
+  @media (max-width:860px){
+    .aboutme-copy{padding:44px 16px;}
+    .corner-orn{width:62px;height:62px;}
+  }
 
   /* art through the years — 4 placeholder boxes */
   .artlife{margin-top:90px;}
@@ -321,7 +340,7 @@
   .abox .ph .soon{font-style:italic;font-size:12.5px;color:#B5B4AC;}
   .abox .cap{margin-top:12px;font-size:14px;color:var(--grey);}
   .abox .ph{cursor:url("cursor-hand.svg") 10 2, pointer;transition:border-color .15s;}
-  .abox .ph:active{cursor:url("cursor-hand-active-black.svg") 10 2, pointer;}
+  .abox .ph:active{cursor:url("cursor-hand-active-cream.svg") 10 2, pointer;}
   .abox .ph:hover{border-color:var(--ink);}
 
   /* mini gallery — new placeholder, cream instead of the black boxes above */
@@ -376,16 +395,16 @@
     font-style:italic;text-align:center;font-size:clamp(26px,4vw,48px);line-height:1.3;
     max-width:880px;margin:0 auto 26px;
   }
-  .ethos-sub{text-align:center;color:#D9D4C8;font-size:16.5px;line-height:1.8;max-width:640px;margin:0 auto 70px;}
+  .ethos-sub{text-align:center;color:#272830;font-size:16.5px;line-height:1.8;max-width:640px;margin:0 auto 70px;}
   .creed{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--line);}
   .creed .c{padding:36px 30px 42px;border-right:1px solid var(--line);}
   .creed .c:last-child{border-right:none;}
   .creed .cn{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:24px;margin-bottom:18px;}
   .creed h4{font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;font-size:18px;text-transform:uppercase;line-height:1.3;margin-bottom:12px;}
-  .creed p{font-size:15.5px;color:#D9D4C8;line-height:1.7;}
+  .creed p{font-size:15.5px;color:#272830;line-height:1.7;}
   .ethos-mission{
     max-width:720px;margin:70px auto 0;border:1px solid var(--line);padding:34px 36px;
-    font-size:17px;line-height:1.9;color:#E8E0D0;
+    font-size:17px;line-height:1.9;color:#121215;
   }
   .ethos-mission .k{border-bottom:1px solid var(--ink);}
 
@@ -394,7 +413,7 @@
     font-family:'Roboto Mono',monospace;font-style:italic;font-weight:700;
     font-size:clamp(28px,4.4vw,54px);letter-spacing:-0.02em;text-transform:uppercase;line-height:1.1;margin-bottom:20px;
   }
-  .gal-sub{color:#D9D4C8;font-size:16.5px;line-height:1.8;max-width:640px;margin-bottom:56px;}
+  .gal-sub{color:#272830;font-size:16.5px;line-height:1.8;max-width:640px;margin-bottom:56px;}
   .gal-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
   .gal-grid .g{aspect-ratio:3/4;border:1px solid var(--line);background:#000;position:relative;}
   .gal-grid .gi{position:absolute;top:6px;left:9px;font-size:10.5px;letter-spacing:1px;color:#B5B4AC;}
@@ -554,6 +573,10 @@
 
     <div class="aboutme-centered">
       <div class="aboutme-copy">
+        <img class="corner-orn tl" src="corner-flourish.png" alt="" aria-hidden="true">
+        <img class="corner-orn tr" src="corner-flourish.png" alt="" aria-hidden="true">
+        <img class="corner-orn bl" src="corner-flourish.png" alt="" aria-hidden="true">
+        <img class="corner-orn br" src="corner-flourish.png" alt="" aria-hidden="true">
         <h3>Why I Created NovaBleu Kids</h3>
         <p>I'm Charles, founder of NovaBleu Kids, and this program is the class I wish I had when I was twelve.</p>
         <p>Growing up in Los Angeles, I loved to draw. Art was everywhere, murals, art walks, festivals my parents took me to. It shaped how I moved through the world before I even understood it.</p>
@@ -692,7 +715,7 @@
 </script>
 
 <footer>
-  <img src="bleuwndr-logo-white.png" alt="Bleuwndr">
+  <img src="bleuwndr-logo-black.png" alt="Bleuwndr">
   <div class="fline">© 2026 Charles / Bleuwndr · NovaBleu Kids</div>
   <div class="fline">Raising Curators. Not Consumers.</div>
 </footer>
