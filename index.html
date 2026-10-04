@@ -33,31 +33,19 @@
   a{text-decoration:none;color:inherit;}
   ::selection{background:var(--ink);color:var(--bg);}
 
-  /* Original ink doodles: a little star opens into an eye, then rests. */
+  /* Original ink doodles: a small starburst draws in, then fades. */
   .sparks{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
   .ink-spark{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);transform:translate(-50%,-50%) rotate(var(--tilt));color:var(--ink)}
   .ink-doodle{width:100%;height:100%;overflow:visible;display:block}
   .ink-doodle :is(g,path){animation-delay:var(--phase)!important;animation-duration:16s!important;animation-iteration-count:infinite!important;animation-timing-function:cubic-bezier(.4,0,.2,1)!important}
-  .ink-burst,.ink-seed,.ink-eye,.eye-iris{transform-box:view-box;transform-origin:60px 60px}
+  .ink-burst,.ink-seed{transform-box:view-box;transform-origin:60px 60px}
   .ink-burst{animation-name:ink-bloom;opacity:0}
   .ink-burst path{stroke-dasharray:1;animation-name:ink-ray-draw}
   .ink-accent{stroke:var(--tone);stroke-width:2.3}
   .ink-seed{animation-name:ink-seed-open;opacity:0}
-  .ink-eye{animation-name:ink-eye-open;opacity:0}
-  .eye-outline,.eye-lashes,.iris-ring,.eye-echo{stroke-dasharray:1;stroke-dashoffset:1}
-  .eye-outline{animation-name:ink-eye-trace}
-  .eye-lashes{animation-name:ink-lash-trace;stroke-width:1.4}
-  .eye-iris{animation-name:ink-iris-look}
-  .iris-ring{animation-name:ink-lash-trace}
-  .eye-echo{animation-name:ink-echo-trace;stroke-width:.85;opacity:.5}
   @keyframes ink-bloom{0%,3%{opacity:0;transform:scale(.35) rotate(-8deg)}9%,17%{opacity:.55}22%{opacity:.38;transform:scale(1) rotate(0)}31%,100%{opacity:0;transform:scale(1.1) rotate(3deg)}}
   @keyframes ink-ray-draw{0%,3%{stroke-dashoffset:1}12%,22%{stroke-dashoffset:0}31%,100%{stroke-dashoffset:-1}}
   @keyframes ink-seed-open{0%,3%{opacity:0;transform:scale(.5)}10%,18%{opacity:.42;transform:scale(1)}27%,100%{opacity:0;transform:scale(1.1,.12)}}
-  @keyframes ink-eye-open{0%,21%{opacity:0;transform:scale(.75,.12)}33%{opacity:.45;transform:scale(1)}49%{transform:scale(1)}51%{transform:scale(1,.1)}54%,64%{opacity:.45;transform:scale(1)}76%,100%{opacity:0;transform:scale(.96,.88)}}
-  @keyframes ink-eye-trace{0%,23%{stroke-dashoffset:1}39%,68%{stroke-dashoffset:0}80%,100%{stroke-dashoffset:-1}}
-  @keyframes ink-lash-trace{0%,30%{stroke-dashoffset:1}43%,68%{stroke-dashoffset:0}80%,100%{stroke-dashoffset:-1}}
-  @keyframes ink-iris-look{0%,31%{opacity:0;transform:translateX(-2px)}43%,57%{opacity:1;transform:translateX(0)}63%,69%{opacity:1;transform:translateX(2px)}77%,100%{opacity:0}}
-  @keyframes ink-echo-trace{0%,38%{stroke-dashoffset:1}50%,65%{stroke-dashoffset:0}77%,100%{stroke-dashoffset:-1}}
   @media(max-width:860px){
     .ink-spark{width:90px;height:90px}
     .ink-spark:nth-child(n+5){display:none}
@@ -67,12 +55,7 @@
     .ink-spark:nth-child(4){left:calc(100% - 52px);top:82%}
   }
   @media(prefers-reduced-motion:reduce){
-    .ink-doodle :is(g,path){animation:none!important}
-    .ink-burst,.ink-seed{display:none}
-    .ink-eye{opacity:.22;transform:none}
-    .eye-outline,.eye-lashes,.iris-ring,.eye-echo{stroke-dashoffset:0}
-    .eye-iris{opacity:1}
-    .ink-spark:nth-child(n+3){display:none}
+    .ink-sparks{display:none}
   }
 
   /* Static paper base layers. Visible fibres and crease strength are set below. */
@@ -355,15 +338,15 @@
 
   /* Editorial refinement — cream paper, black ink, original wordmarks. */
   :root{--grey:#000000}
-  /* Visible paper tooth plus broad, quiet creases; all static and monochrome. */
-  .paper-fold{opacity:.8;mix-blend-mode:multiply;background-image:
+  /* Barely visible paper grain and creases; all static and monochrome. */
+  .paper-fold{opacity:.07;mix-blend-mode:multiply;background-image:
     linear-gradient(116deg,transparent 23%,rgba(30,25,18,.065) 25%,transparent 27%),
     linear-gradient(14deg,transparent 54%,rgba(30,25,18,.05) 55%,transparent 57%),
     linear-gradient(88deg,transparent 66.7%,rgba(30,25,18,.045) 67%,transparent 67.5%)}
-  .paper-fold-light{opacity:.7;background-image:
+  .paper-fold-light{opacity:.06;background-image:
     linear-gradient(116deg,transparent 24.5%,rgba(255,255,255,.6) 25.4%,transparent 27.3%),
     linear-gradient(14deg,transparent 54.8%,rgba(255,255,255,.5) 55.5%,transparent 57.3%)}
-  .paper-grain{opacity:.24;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%3Cfilter%20id%3D%22p%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.72%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20seed%3D%2214%22%2F%3E%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22%2F%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D%22table%22%20tableValues%3D%22.2%20.9%22%2F%3E%3CfeFuncG%20type%3D%22table%22%20tableValues%3D%22.2%20.9%22%2F%3E%3CfeFuncB%20type%3D%22table%22%20tableValues%3D%22.2%20.9%22%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23p%29%22%2F%3E%3Cg%20stroke%3D%22%2330291f%22%20stroke-width%3D%22.45%22%20opacity%3D%22.35%22%3E%3Cpath%20d%3D%22M14%2027l8-2M74%2016l4%201M183%2048l10-2M208%2083l-6%202M22%20136l7%201M112%20181l12-2M170%20216l7%201M33%20220l10-2M143%20104l6-1M68%2076l9%202%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:240px 240px}
+  .paper-grain{opacity:.035;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%3Cfilter%20id%3D%22p%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.72%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20seed%3D%2214%22%2F%3E%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22%2F%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D%22table%22%20tableValues%3D%22.2%20.9%22%2F%3E%3CfeFuncG%20type%3D%22table%22%20tableValues%3D%22.2%20.9%22%2F%3E%3CfeFuncB%20type%3D%22table%22%20tableValues%3D%22.2%20.9%22%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23p%29%22%2F%3E%3Cg%20stroke%3D%22%2330291f%22%20stroke-width%3D%22.45%22%20opacity%3D%22.35%22%3E%3Cpath%20d%3D%22M14%2027l8-2M74%2016l4%201M183%2048l10-2M208%2083l-6%202M22%20136l7%201M112%20181l12-2M170%20216l7%201M33%20220l10-2M143%20104l6-1M68%2076l9%202%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:240px 240px}
 
   :root{--page-gutter:clamp(24px,5vw,90px);--section-space:clamp(64px,8vw,112px)}
   [hidden]{display:none!important}
@@ -506,96 +489,48 @@
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M22 61Q39 40 60 42Q83 40 100 61Q79 79 59 78Q37 80 22 61Z"/>
-        <path class="eye-lashes" pathLength="1" d="M34 47l-6-8M51 41l-2-10M76 43l4-10M92 51l8-6"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M57 47C42 48 42 70 55 74C73 77 79 49 57 47Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:85%;--y:52%;--size:142px;--phase:-5s;--tilt:9deg;--tone:#000000">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M20 62Q38 32 63 40Q85 42 101 61Q82 75 60 77Q36 79 20 62Z"/>
-        <path class="eye-lashes" pathLength="1" d="M30 48l-7-7M49 40l-4-11M73 42l3-12M94 52l9-6"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M65 44C48 40 43 68 58 73C77 79 82 49 65 44Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:18%;--y:79%;--size:98px;--phase:-9s;--tilt:-8deg;--tone:#c38045">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M23 61Q40 45 61 42Q83 43 99 61Q82 81 60 77Q40 78 23 61Z"/>
-        <path class="eye-lashes" pathLength="1" d="M32 49l-4-8M48 42l-1-8M79 46l5-8M93 55l8-3"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M58 46C44 45 45 71 59 74C77 73 75 47 58 46Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:84%;--y:81%;--size:110px;--phase:-13s;--tilt:15deg;--tone:#7487ad">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M22 61Q39 40 60 42Q83 40 100 61Q79 79 59 78Q37 80 22 61Z"/>
-        <path class="eye-lashes" pathLength="1" d="M34 47l-6-8M51 41l-2-10M76 43l4-10M92 51l8-6"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M57 47C42 48 42 70 55 74C73 77 79 49 57 47Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:43%;--y:85%;--size:94px;--phase:-3s;--tilt:6deg;--tone:#000000">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M20 62Q38 32 63 40Q85 42 101 61Q82 75 60 77Q36 79 20 62Z"/>
-        <path class="eye-lashes" pathLength="1" d="M30 48l-7-7M49 40l-4-11M73 42l3-12M94 52l9-6"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M65 44C48 40 43 68 58 73C77 79 82 49 65 44Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:14%;--y:65%;--size:108px;--phase:-7s;--tilt:-10deg;--tone:#000000">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M23 61Q40 45 61 42Q83 43 99 61Q82 81 60 77Q40 78 23 61Z"/>
-        <path class="eye-lashes" pathLength="1" d="M32 49l-4-8M48 42l-1-8M79 46l5-8M93 55l8-3"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M58 46C44 45 45 71 59 74C77 73 75 47 58 46Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:57%;--y:46%;--size:84px;--phase:-11s;--tilt:13deg;--tone:#a57c88">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M22 61Q39 40 60 42Q83 40 100 61Q79 79 59 78Q37 80 22 61Z"/>
-        <path class="eye-lashes" pathLength="1" d="M34 47l-6-8M51 41l-2-10M76 43l4-10M92 51l8-6"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M57 47C42 48 42 70 55 74C73 77 79 49 57 47Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
   <div class="ink-spark" style="--x:84%;--y:68%;--size:86px;--phase:-15s;--tilt:-4deg;--tone:#000000">
     <svg class="ink-doodle" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <g class="ink-burst"><path pathLength="1" d="M59 40Q57 29 59 18"/><path pathLength="1" d="M75 44Q82 35 86 28"/><path pathLength="1" d="M84 59Q97 56 105 60"/><path pathLength="1" d="M77 76Q87 83 90 94"/><path pathLength="1" d="M59 83Q57 96 60 106"/><path pathLength="1" d="M42 76Q33 81 28 91"/><path pathLength="1" d="M36 59Q24 61 16 57"/><path pathLength="1" d="M43 43Q32 38 28 28"/><path class="ink-accent" pathLength="1" d="M101 34l4-3M14 77l-4 2"/></g>
       <path class="ink-seed" d="M60 48Q60 58 72 60Q60 61 59 72Q58 61 48 60Q58 58 60 48Z"/>
-      <g class="ink-eye">
-        <path class="eye-outline" pathLength="1" d="M20 62Q38 32 63 40Q85 42 101 61Q82 75 60 77Q36 79 20 62Z"/>
-        <path class="eye-lashes" pathLength="1" d="M30 48l-7-7M49 40l-4-11M73 42l3-12M94 52l9-6"/>
-        <g class="eye-iris"><path class="iris-ring" pathLength="1" d="M65 44C48 40 43 68 58 73C77 79 82 49 65 44Z"/><ellipse cx="60" cy="60" rx="3.5" ry="5" fill="currentColor" stroke="none"/><circle cx="61" cy="58" r="1.1" fill="var(--bg)" stroke="none"/></g>
-        <path class="eye-echo" pathLength="1" d="M35 82Q58 91 80 81"/>
-      </g>
     </svg>
   </div>
 </div>
