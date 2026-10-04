@@ -361,11 +361,92 @@
     .phase:nth-child(3),.phase:nth-child(4){border-bottom:none;}
     .about h3,.about .aside{text-align:left;}
   }
+
+  /* Editorial refinement — cream paper, black ink, original wordmarks. */
+  :root{--grey:#000000}
+  .paper-fold{opacity:.13}
+  .paper-fold-light{opacity:.11}
+  .paper-grain{opacity:.06}
+  :root{--page-gutter:clamp(24px,5vw,90px);--section-space:clamp(64px,8vw,112px)}
+  [hidden]{display:none!important}
+  .skip-link{position:fixed;top:12px;left:20px;z-index:100;background:var(--ink);color:var(--bg);padding:12px 18px;transform:translateY(-180%)}
+  .skip-link:focus{transform:none}
+  :is(a,button,input,textarea,select):focus-visible{outline:2px solid var(--ink);outline-offset:5px}
+  .microline{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:24px;padding:12px var(--page-gutter);min-height:72px}
+  .ml-side{font-size:14px;line-height:1.45;letter-spacing:0;max-width:280px;text-wrap:balance}
+  .ml-side.right{justify-self:end}
+  .topnav{gap:clamp(24px,3vw,46px)}
+  .topnav a{display:inline-flex;align-items:center;min-height:44px;font-size:15px;letter-spacing:1.5px;position:relative}
+  .topnav a:not(.home)::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+  .topnav a.active{border:0;padding-bottom:0}
+  .topnav a.active::after,.topnav a:not(.home):hover::after{transform:scaleX(1)}
+  .topnav a:hover{opacity:1}
+  section{max-width:1440px;padding:var(--section-space) var(--page-gutter);scroll-margin-top:80px}
+  .sec-label{align-items:center;gap:16px;margin-bottom:clamp(32px,4vw,56px);font-size:13px;letter-spacing:1.7px;line-height:1.4}
+  .sec-label .num{font-size:18px}
+  .sec-label .rule{top:0}
+  .cta{display:inline-flex;align-items:center;justify-content:center;gap:28px;min-height:54px;padding:15px 25px;font-size:14px;line-height:1.5;transition:background-color .18s ease,color .18s ease}
+  .cta::after{content:"↗";font-size:20px;line-height:1}
+  .text-link{display:inline-flex;align-items:center;gap:18px;min-height:44px;border-bottom:1px solid var(--ink);font-size:15px}
+  .text-link::after{content:"→";transition:transform .18s ease}
+  .text-link:hover::after{transform:translateX(4px)}
+  footer{display:grid;grid-template-columns:auto 1fr;column-gap:32px;align-items:center;text-align:left;padding:32px var(--page-gutter)}
+  footer img{width:64px;grid-row:1 / 3;margin:0}
+  footer .fline{font-size:13px;line-height:1.7}
+  footer .fline + .fline{margin-top:0}
+  .footer-links{grid-column:2;display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:18px;font-size:13px}
+  .footer-links a{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;min-height:30px}
+  .wl-head,.gal-head{font-size:clamp(32px,5.5vw,76px);line-height:1.08;letter-spacing:-.045em;text-wrap:balance}
+  .wl-sub,.gal-sub{font-size:18px;line-height:1.75;max-width:64ch;margin-bottom:48px}
+  .wl-layout{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(28px,4vw,60px)}
+  .wl-panel{padding:clamp(24px,3vw,44px)}
+  .wl-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .field label{font-size:13px;line-height:1.5;letter-spacing:.8px}
+  .field input,.field select,.field textarea{border-bottom-color:var(--hairline);min-height:44px;border-radius:0;transition:border-color .18s ease}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--ink);outline-offset:4px;border-bottom-color:var(--ink)}
+  .wl-step{padding:26px 28px}
+  .wl-step p{font-size:16px;line-height:1.65}
+  .wl-consent{font-size:15px;line-height:1.65}
+  .wl-fallback{overflow-wrap:anywhere;line-height:1.7}
+  .wl-privacy{max-width:none;margin-top:40px;font-size:14px}
+  .page-invitation{display:flex;align-items:center;justify-content:space-between;gap:28px;border-top:1px solid var(--ink);padding-top:28px;margin-top:64px}
+  .page-invitation p{font-size:20px;max-width:34ch}
+  .page-invitation .cta{flex-shrink:0}
+  .creed{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .creed .c{padding:32px clamp(20px,2.5vw,38px)}
+  .creed p{font-size:17px;line-height:1.75;-webkit-text-stroke:.35px currentColor}
+  .aboutme-copy p{line-height:1.85}
+  @media(max-width:860px){
+    :root{--page-gutter:20px}
+    .microline{display:flex;justify-content:center;padding:10px 20px;min-height:64px}
+    .topnav{width:100%;max-width:440px;justify-content:space-between;gap:10px;flex-wrap:nowrap}
+    .topnav a{font-size:13px;letter-spacing:1px}
+    .ml-side{display:none}
+    section{padding:64px var(--page-gutter);scroll-margin-top:76px}
+    .wl-layout{grid-template-columns:1fr}
+    .wl-row{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0 24px}
+    .wl-panel{padding:24px 20px}
+    .wl-sub,.gal-sub{font-size:17px}
+    .creed{grid-template-columns:1fr}
+    .page-invitation{align-items:flex-start;flex-direction:column;margin-top:48px}
+    .page-invitation .cta{width:100%}
+    .sec-label{font-size:12px;letter-spacing:1px;gap:12px}
+    footer{padding:28px 20px;column-gap:22px}
+    footer img{width:52px}
+    .footer-links{grid-column:1 / -1;margin-top:24px;justify-content:space-between}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .spark i,.spark-eye{animation:none}
+    .topnav a::after,.text-link::after,.cta{transition:none}
+  }
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#page-content">Skip to content</a>
 
-<div class="sparks">
+<div class="sparks" aria-hidden="true">
   <div class="spark" style="left:16%;top:46%;">
     <i style="--a:12deg;--d:0s"></i><i style="--a:72deg;--d:0s"></i><i style="--a:132deg;--d:0s"></i>
     <i style="--a:192deg;--d:0s"></i><i style="--a:252deg;--d:0s"></i><i style="--a:312deg;--d:0s"></i>
@@ -449,16 +530,16 @@
     <svg class="spark-eye" viewBox="0 0 64 40" style="--d:4.0s"><path d="M4 26c9-12 19-14 28-14s19 2 28 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M16 13l-3-6M32 10V3M48 13l3-6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
   </div>
 </div>
-<div class="paper-fold"></div>
-<div class="paper-fold-light"></div>
-<div class="paper-grain"></div>
+<div class="paper-fold" aria-hidden="true"></div>
+<div class="paper-fold-light" aria-hidden="true"></div>
+<div class="paper-grain" aria-hidden="true"></div>
 
 <main>
 
   <!-- SCREEN 1 -->
   <header class="microline" id="top">
     <span class="ml-side">A Creative Confidence Studio — Kids 9–12</span>
-    <nav class="topnav">
+    <nav class="topnav" aria-label="Main navigation">
       <a class="home" href="index.html" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg></a>
       <a href="NVB-About-Me.html">About Me</a>
       <a href="NVB-Ethos.html">Ethos</a>
@@ -468,8 +549,9 @@
 
   <!-- 06 GALLERY -->
   <section id="gallery">
+    <div id="page-content" tabindex="-1"></div>
     <div class="sec-label"><span class="num">01</span><span>/ the gallery</span><span class="rule"></span></div>
-    <div class="gal-head">The art I've seen —<br>kids, without it.</div>
+    <h1 class="gal-head">The art I've seen —<br>kids, without it.</h1>
     <p class="gal-sub">Collected from schools, working with kids every day. Their drawings already have personality, energy, and a distinct voice — no program gave them that. This wall is why NovaBleu Kids exists. Click any piece to view it full screen.</p>
     <div class="gal-grid">
       <div class="g"><span class="gi">01</span><span class="gs">soon</span></div>
@@ -609,6 +691,9 @@
   <img src="bleuwndr-logo-black.png" alt="Bleuwndr">
   <div class="fline">© 2026 Charles / Bleuwndr · NovaBleu Kids</div>
   <div class="fline">Raising Curators. Not Consumers.</div>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="index.html">Home</a><a href="NVB-About-Me.html">About Me</a><a href="NVB-Ethos.html">Ethos</a><a href="NVB-Join.html">Join the cohort</a>
+  </nav>
 </footer>
 
 </body>
